@@ -1,0 +1,134 @@
+@import '../../App.css';
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.form-container {
+    padding: 2rem;
+    width: 50rem;
+    text-align: center;
+}
+
+.form-container h2 {
+    margin: 0 0 20px;
+    color: #fff;
+    font-size: 3rem;
+    text-align: center;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+.form-container label {
+    display: block;
+    margin: 10px 0;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container input[type="text"],
+.form-container input[type="date"] {
+    width: 80%;
+    padding: 5px;
+    border: 1px solid #35383e;
+    background-color: #202225;
+    border-radius: 5px;
+    color: rgb(232, 230, 227);
+}
+
+.form-container button[id="submitBtn"] {
+    display: block;
+    justify-content: center;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.form-container button[id="submitBtn"]:hover {
+    background: #555;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-with-google-btn {
+    transition: background-color .3s, box-shadow .3s;
+      
+    padding: 12px 16px 12px 42px;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+    
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-position: 12px 11px;
+}
+
+.error-message {
+    font-size: 1.5rem;
+    color: rgb(252, 69, 69);
+    margin-top: 3px;
+    min-height: 23px;
+}
+
+#otherError {
+    min-height: 0;
+}
+
+.form-container h1 {
+    font-size: 4rem;
+}
+
+.form-container p,
+.form-container a {
+    font-size: 2rem;
+}
+
+.form-container a {
+    color: lightskyblue;
+    font-size: 1.5rem;
+}
+
+.submitted-container h1 {
+    font-size: 4rem;
+}
+
+.submitted-container p,
+.submitted-container a {
+    font-size: 2rem;
+}
+
+.submitted-container a {
+    color: lightskyblue;
+}
+
+#verification-success {
+    color: limegreen;
+}
+
+input.invalid {
+    border-color: red !important;
+}
+
+input.valid {
+    border-color: greenyellow !important;
+}
