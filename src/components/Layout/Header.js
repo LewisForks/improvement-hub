@@ -36,8 +36,8 @@ export const Header = () => {
             <a href="#contact">Contact</a>
     
             <div className="btn-box registration">
-            <button href="/account/signin" className="btn registration">Sign In</button>
-            <button href="/account/signup" className="btn registration">Sign Up</button>
+            <a href="/signin" className="btn registration">Sign In</a>
+            <a href="/register" className="btn registration">Register</a>
             </div>
         </nav>
     
@@ -47,8 +47,8 @@ export const Header = () => {
             <a href="#pricing">Pricing</a>
             <a href="#contact">Contact</a>
             <div className="mobile-btn-box registration">
-            <button href="/account/signin" className="btn registration">Sign In</button>
-            <button href="/account/signup" className="btn registration">Sign Up</button>
+            <a href="/signin" className="btn registration">Sign In</a>
+            <a href="/register" className="btn registration">Register</a>
             </div>
         </nav>
         </header>

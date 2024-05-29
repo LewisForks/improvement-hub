@@ -1,21 +1,21 @@
 import React from "react";
-import { Login } from "../../components/Auth/Login";
-import './Auth.css';
-import '../../App.css';
+import { Register } from "../../components/Auth/Register";
+import "./Auth.css";
+import "../../App.css";
 
 import { Header } from "../../components/Layout/Header";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   return (
     <div>
       <Header />
       <div className="form-wrapper">
         <div className="form-container">
-          <Login />
+          <Register />
         </div>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

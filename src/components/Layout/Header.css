@@ -18,7 +18,7 @@
 }
 
 @media (min-width: 1050px) {
-  .navbar a,button {
+  .navbar a {
     font-size: 1.5rem;
     font-weight: 400;
     color: var(--text-colour);
@@ -26,8 +26,8 @@
     transition: 0.5s;
   }
 
-  .navbar a:hover,button:hover,
-  .navbar a.selected,button.selected {
+  .navbar a:hover,
+  .navbar a.selected {
     color: var(--other-colour);
   }
 
@@ -63,7 +63,7 @@
     right: 0;
   }
 
-  .mobile-navbar a,button {
+  .mobile-navbar a {
     display: block;
     font-size: 1.5rem;
     font-weight: 400;
@@ -73,8 +73,8 @@
     margin-bottom: 1rem;
   }
 
-  .mobile-navbar a:hover,button:hover,
-  .mobile-navbar a.selected,button.selected {
+  .mobile-navbar a:hover,
+  .mobile-navbar a.selected {
     color: var(--other-colour);
   }
 
