@@ -11,6 +11,7 @@ export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profilePic, setProfilePic] = useState(null);
+  const [profilePicURL, setProfilePicURL] = useState(null);
   const [username, setUsername] = useState("");
   const [dob, setDob] = useState("");
   const [goals, setGoals] = useState("");
@@ -64,7 +65,9 @@ export const Register = () => {
   };
 
   const handleProfilePicChange = (e) => {
-    setProfilePic(e.target.files[0]);
+    const file = e.target.files[0];
+    setProfilePic(file);
+    setProfilePicURL(URL.createObjectURL(file));
   };
 
   const handleAdditionalInfo = async (e) => {
@@ -83,10 +86,14 @@ export const Register = () => {
           console.error(error);
         },
         async () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
-            console.log("File available at", downloadURL);
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             const docRef = doc(db, "users", auth.currentUser.uid);
-            await setDoc(docRef, { username, dob, goals, profilePic: downloadURL });
+            await setDoc(docRef, {
+              username,
+              dob,
+              goals,
+              profilePic: downloadURL,
+            });
             window.location.href = "/";
           });
         }
@@ -131,7 +138,7 @@ export const Register = () => {
       )}
       {step === 2 && (
         <form id="profileForm">
-          <h1>Profile</h1>
+          <h1>Profile Setup</h1>
           <label htmlFor="username">Username:</label>
           <input
             type="text"
@@ -149,6 +156,9 @@ export const Register = () => {
             onChange={handleProfilePicChange}
             required
           />
+          {profilePicURL && (
+            <img style={{ width: "150px" }} src={profilePicURL} alt="Profile" />
+          )}
           <label htmlFor="dob">Date of Birth:</label>
           <input
             type="date"
