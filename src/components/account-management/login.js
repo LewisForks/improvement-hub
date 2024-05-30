@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { auth, googleProvider } from "../../config/firebase.js";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../config/firebase.js";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   
   const handleRedirect = () => {
     // Redirect to the home page for now after successful login
     if (auth.currentUser) {
-      window.location.href = "/";
+      navigate("/account/manage");
     } else {
       console.error("User not logged in");
     }
@@ -28,7 +32,15 @@ export const Login = () => {
   const handleGoogleLogin = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      handleRedirect();
+      const docRef = doc(db, "users", auth.currentUser.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        handleRedirect();
+      } else {
+        localStorage.setItem('registrationStep', '2');
+        navigate("/register");
+      }
     } catch (error) {
       console.error(error);
     }

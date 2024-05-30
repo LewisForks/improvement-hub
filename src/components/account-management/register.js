@@ -5,9 +5,10 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../config/firebase.js";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(Number(localStorage.getItem('registrationStep')) || 1);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profilePic, setProfilePic] = useState(null);
@@ -16,11 +17,12 @@ export const Register = () => {
   const [dob, setDob] = useState("");
   const [goals, setGoals] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleRedirect = () => {
     // Redirect to the home page for now after successful registration
     if (auth.currentUser) {
-      window.location.href = "/";
+      navigate("/account/manage");
     } else {
       console.error("User not logged in");
     }
