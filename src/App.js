@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Home from "./Pages/Home";
-import LoginPage from "./Pages/account-mangement/Login";
-import RegisterPage from "./Pages/account-mangement/Register";
+import LoginPage from "./Pages/account-mangement/login";
+import RegisterPage from "./Pages/account-mangement/register";
 
 import "./App.css";
 
