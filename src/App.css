@@ -35,6 +35,10 @@ button {
   cursor: pointer;
 }
 
+a {
+  text-decoration: none;
+}
+
 .btn-box {
   position: relative;
   display: inline-flex;

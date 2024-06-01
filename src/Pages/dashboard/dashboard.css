@@ -6,6 +6,10 @@ input.valid {
     border-color: greenyellow !important;
 }
 
+a {
+    color: #369FFF;
+}
+
 .container {
     display: grid;
     grid-template-columns: .75fr 3fr 2fr;
@@ -65,6 +69,7 @@ input.valid {
     display: flex;
     gap: 20px;
     cursor: pointer;
+    align-items: center;
 }
 
 .container .left-section .sidebar i {
@@ -227,7 +232,15 @@ main .pets .item {
 main .pets .item .progress {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
+    height: 100%;
+}
+
+main .pets .item .progress .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    height: 100%;
 }
 
 main .pets .item .progress .info h5 {
@@ -428,6 +441,7 @@ main .contacts .item>i {
     color: #909090;
     position: relative;
     cursor: pointer;
+    font-size: 24px;
 }
 
 .container .right-section .top>i::after {
