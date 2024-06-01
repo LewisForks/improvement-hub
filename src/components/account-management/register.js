@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { auth, googleProvider } from "../../config/firebase.js";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
@@ -18,6 +18,14 @@ export const Register = () => {
   const [goals, setGoals] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.removeItem('registrationStep');
+
+    return () => {
+      localStorage.removeItem('registrationStep');
+    };
+  }, []);
 
   const handleRedirect = () => {
     // Redirect to the home page for now after successful registration

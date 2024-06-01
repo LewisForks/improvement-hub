@@ -8,6 +8,7 @@ import Home from "./Pages/Home";
 import LoginPage from "./Pages/account-mangement/login";
 import RegisterPage from "./Pages/account-mangement/register";
 import ManageProfile from "./Pages/account-mangement/manage-profile";
+import Dashboard from "./Pages/dashboard/dashboard";
 
 import "./App.css";
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signin" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/account/manage" element={<ManageProfile />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
