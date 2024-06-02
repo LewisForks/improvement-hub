@@ -5,7 +5,9 @@ import {
   query,
   where,
   onSnapshot,
+  doc,
   addDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import Modal from "react-modal";
@@ -48,7 +50,11 @@ export const Goals = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuOpen && !event.target.closest('.context-menu') && !event.target.closest('.menu-button')) {
+      if (
+        menuOpen &&
+        !event.target.closest(".context-menu") &&
+        !event.target.closest(".menu-button")
+      ) {
         setMenuOpen(null);
       }
     };
@@ -105,9 +111,13 @@ export const Goals = () => {
     // Open the edit modal for the selected goal
   };
 
-  // Handle "Delete"
-  const handleDeleteGoal = (goalId) => {
-    // Delete the selected goal
+  // Delete the selected goal
+  const handleDeleteGoal = async (goalId) => {
+    try {
+      await deleteDoc(doc(db, "goals", goalId));
+    } catch (error) {
+      console.error("Error deleting goal: ", error);
+    }
   };
 
   return (

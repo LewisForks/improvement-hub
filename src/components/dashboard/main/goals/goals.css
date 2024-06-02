@@ -45,6 +45,11 @@ main .goals .item .qrcode {
     width: auto;
 }
 
+main .goals .item i {
+    color: #fff;
+    font-size: 10rem;
+}
+
 main .goals .item .menu-button {
     cursor: pointer;
     position: absolute;
@@ -62,7 +67,10 @@ main .goals .item .context-menu {
 }
 
 main .goals .item .context-menu button {
-    background-color: #00000059;
+    background-color: #000000ec;
+    color: white;
+    padding: 5px 20px;
+    font-size: 1.3rem;
 }
 
 main .goals .item a {
