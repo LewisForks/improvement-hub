@@ -21,6 +21,9 @@ export const Goals = () => {
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
   const [newGoalTitle, setNewGoalTitle] = useState("");
   const [newGoalDescription, setNewGoalDescription] = useState("");
+
+  const [menuOpen, setMenuOpen] = useState(null);
+
   const auth = getAuth();
   const db = getFirestore();
 
@@ -43,9 +46,28 @@ export const Goals = () => {
     }
   }, [auth, db]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuOpen && !event.target.closest('.context-menu') && !event.target.closest('.menu-button')) {
+        setMenuOpen(null);
+      }
+    };
+
+    if (menuOpen) {
+      document.addEventListener("click", handleClickOutside);
+    } else {
+      document.removeEventListener("click", handleClickOutside);
+    }
+
+    // Clean up the event listener on unmount
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [menuOpen]);
+
   const handleNewGoal = () => {
     if (goals.length >= 4) {
-      setErrorMessage("You can only have 4 goals at a time. Mark one as complete or delete one to create a new one.");
+      setErrorMessage(
+        "You can only have 4 goals at a time. Mark one as complete or delete one to create a new one."
+      );
       setErrorModalIsOpen(true);
     } else {
       setModalIsOpen(true);
@@ -69,6 +91,25 @@ export const Goals = () => {
     setNewGoalDescription("");
   };
 
+  const handleOpenMenu = (goalId) => {
+    setMenuOpen(goalId);
+  };
+
+  // Handle "Mark as Complete"
+  const handleCompleteGoal = (goalId) => {
+    // Update the goal's status to "complete"
+  };
+
+  // Handle "Edit"
+  const handleEditGoal = (goalId) => {
+    // Open the edit modal for the selected goal
+  };
+
+  // Handle "Delete"
+  const handleDeleteGoal = (goalId) => {
+    // Delete the selected goal
+  };
+
   return (
     <div>
       <div className="separator">
@@ -77,7 +118,7 @@ export const Goals = () => {
           <button className="btn" onClick={handleNewGoal}>
             Create New
           </button>
-          <a href="#">View All</a>
+          <a href="#">Manage Goals</a>
         </div>
       </div>
 
@@ -120,6 +161,30 @@ export const Goals = () => {
                 <h5>{goal.title}</h5>
                 <p>{goal.description}</p>
               </div>
+              <div className="menu">
+                <i
+                  className="bx bx-dots-vertical-rounded menu-button"
+                  onClick={() => handleOpenMenu(goal.id)}
+                ></i>
+                {menuOpen === goal.id && (
+                  <div
+                    className="context-menu"
+                    onBlur={() => setMenuOpen(null)}
+                    tabIndex="0"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button onClick={() => handleCompleteGoal(goal.id)}>
+                      Mark as Complete
+                    </button>
+                    <button onClick={() => handleEditGoal(goal.id)}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDeleteGoal(goal.id)}>
+                      Delete
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           ))
         ) : (
@@ -127,8 +192,7 @@ export const Goals = () => {
             <div className="info">
               <h5>No Goals Found</h5>
               <p>
-                <a onClick={() => setModalIsOpen(true)}>Create one</a>{" "}
-                now!
+                <a onClick={() => setModalIsOpen(true)}>Create one</a> now!
               </p>
             </div>
             <i className="bx bx-x"></i>
