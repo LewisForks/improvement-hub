@@ -3,7 +3,7 @@ import { Login } from "../../components/account-management/login";
 import './Auth.css';
 import '../../App.css';
 
-import { Header } from "../../components/Layout/Header";
+import { Header } from "../../components/Layout/Header/Header";
 
 const LoginPage = () => {
   return (

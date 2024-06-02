@@ -3,7 +3,7 @@ import { ManageProfile } from "../../components/account-management/manage-profil
 import "./Auth.css";
 import "../../App.css";
 
-import { Header } from "../../components/Layout/Header";
+import { Header } from "../../components/Layout/Header/Header";
 
 const ManageProfilePage = () => {
   return (

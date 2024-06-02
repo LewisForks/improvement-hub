@@ -1,0 +1,11 @@
+main header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+main header h5 {
+    font-size: 18px;
+    color: #369FFF;
+    font-weight: 400;
+}

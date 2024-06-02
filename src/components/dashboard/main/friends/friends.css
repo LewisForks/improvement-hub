@@ -1,0 +1,76 @@
+main .friends {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+main .friends .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #131517;
+    border-radius: 20px;
+}
+
+main .friends .item .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+main .friends .item .left .icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main .friends .item:nth-child(1) .left .icon {
+    background: #D1E6F9;
+}
+
+main .friends .item:nth-child(1) .left .icon i {
+    color: #369FFF;
+}
+
+main .friends .item:nth-child(2) .left .icon {
+    background: #F9E5D2;
+}
+
+main .friends .item:nth-child(2) .left .icon i {
+    color: #FF993A;
+}
+
+main .friends .item:nth-child(3) .left .icon {
+    background: #E2EDD2;
+}
+
+main .friends .item:nth-child(3) .left .icon i {
+    color: #8AC53E;
+}
+
+main .friends .item:nth-child(4) .left .icon {
+    background: #F9F0D3;
+}
+
+main .friends .item:nth-child(4) .left .icon i {
+    color: #FFD143;
+}
+
+main .friends .item .left .details h5 {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+main .friends .item .left .details p {
+    font-size: 12px;
+    color: #BDBDBD;
+}
+
+main .friends .item>i {
+    cursor: pointer;
+}

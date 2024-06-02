@@ -3,7 +3,7 @@ import { Register } from "../../components/account-management/register";
 import "./Auth.css";
 import "../../App.css";
 
-import { Header } from "../../components/Layout/Header";
+import { Header } from "../../components/Layout/Header/Header";
 
 const RegisterPage = () => {
   return (

@@ -1,0 +1,73 @@
+main .goals {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+main .goals .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 140px;
+    min-width: 214px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+main .goals .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+main .goals .item .info {
+    display: flex;
+    flex-direction: column;
+}
+
+main .goals .item .info h5 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+main .goals .item .progress .info p {
+    color: #fff;
+}
+
+main .goals .item .qrcode {
+    height: 100%;
+    width: auto;
+}
+
+main .goals .item i {
+    font-size: 80px;
+    color: #fff;
+}
+
+main .goals .item a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+main .goals .item#notfound {
+    flex-direction: row;
+    background-color: rgb(150, 24, 24);
+}
+
+main .goals .item:nth-child(1) {
+    background: #006ED3;
+}
+
+main .goals .item:nth-child(2) {
+    background: #FF993A;
+}
+
+main .goals .item:nth-child(3) {
+    background: #8AC53E;
+}
+
+main .goals .item:nth-child(4) {
+    background: #FFD043;
+}
