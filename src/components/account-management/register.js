@@ -1,29 +1,36 @@
 import { useState, useEffect } from "react";
 import { auth, googleProvider } from "../../config/firebase.js";
-import { createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification } from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  sendEmailVerification,
+} from "firebase/auth";
+import { doc, setDoc, getDoc, collection } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../config/firebase.js";
 import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
-  const [step, setStep] = useState(Number(localStorage.getItem('registrationStep')) || 1);
+  const [step, setStep] = useState(
+    Number(localStorage.getItem("registrationStep")) || 1
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profilePic, setProfilePic] = useState(null);
   const [profilePicURL, setProfilePicURL] = useState(null);
   const [username, setUsername] = useState("");
   const [dob, setDob] = useState("");
-  const [goals, setGoals] = useState("");
+  const [goalTitle, setGoalTitle] = useState("");
+  const [goal, setGoal] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem('registrationStep');
+    localStorage.removeItem("registrationStep");
 
     return () => {
-      localStorage.removeItem('registrationStep');
+      localStorage.removeItem("registrationStep");
     };
   }, []);
 
@@ -39,7 +46,11 @@ export const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
       await sendEmailVerification(user);
       alert("Verification email sent. Please verify your email to continue.");
@@ -100,14 +111,21 @@ export const Register = () => {
         },
         async () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            const docRef = doc(db, "users", auth.currentUser.uid);
-            await setDoc(docRef, {
+            const userDocRef = doc(db, "users", auth.currentUser.uid);
+            await setDoc(userDocRef, {
               username,
               dob,
-              goals,
               profilePic: downloadURL,
               plan: "Basic",
             });
+
+            const goalDocRef = doc(collection(db, "goals"));
+            await setDoc(goalDocRef, {
+              title: goalTitle,
+              description: goal,
+              userId: auth.currentUser.uid,
+            });
+
             window.location.href = "/";
           });
         }
@@ -181,12 +199,20 @@ export const Register = () => {
             onChange={(e) => setDob(e.target.value)}
             required
           />
-          <label htmlFor="goals">Goals:</label>
+          <label htmlFor="goals">First Goal:</label>
+          <input
+            type="text"
+            id="goalsTitle"
+            name="goalsTitle"
+            placeholder="Enter a goal"
+            onChange={(e) => setGoalTitle(e.target.value)}
+            required
+          ></input>
           <textarea
             id="goals"
             name="goals"
-            placeholder="Enter your goals"
-            onChange={(e) => setGoals(e.target.value)}
+            placeholder="Explain your goal here..."
+            onChange={(e) => setGoal(e.target.value)}
             required
           />
           <button onClick={handleAdditionalInfo} id="submitBtn">

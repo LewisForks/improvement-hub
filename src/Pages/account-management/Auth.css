@@ -46,6 +46,10 @@ h3 {
     color: rgb(232, 230, 227);
 }
 
+#goals {
+    margin: 10px 0;
+}
+
 .form-container button[id="submitBtn"] {
     display: block;
     justify-content: center;
