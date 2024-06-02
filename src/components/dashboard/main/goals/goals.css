@@ -18,12 +18,15 @@ main .goals .item {
 main .goals .item {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: top;
+    align-items: start;
 }
 
 main .goals .item .info {
     display: flex;
     flex-direction: column;
+    max-width: 100%;
+    word-wrap:break-word;
 }
 
 main .goals .item .info h5 {
