@@ -4,16 +4,12 @@ import "./account-details.css";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db, auth } from "../../../../config/firebase";
 import {
-  GoogleAuthProvider,
   EmailAuthProvider,
-  signInWithPopup,
   reauthenticateWithCredential,
-  signInWithCredential,
   updateEmail,
   updatePassword,
+  verifyBeforeUpdateEmail,
 } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
 
 export const AccountDetails = () => {
   const [censoredEmail, setCensoredEmail] = useState("");
@@ -24,6 +20,7 @@ export const AccountDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [providerId, setProviderId] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -66,11 +63,16 @@ export const AccountDetails = () => {
 
   const handleCancelEditClick = () => {
     setIsEditing(false);
+    resetForm();
   };
-  
+
+  // call to reset form details
   const resetForm = () => {
     setIsEditing(false);
+    setEmail(auth.currentUser.email);
+    setPassword("");
     setConfirmPassword("");
+    setError("");
   };
 
   const handleSubmit = async (e) => {
@@ -89,15 +91,26 @@ export const AccountDetails = () => {
         try {
           await reauthenticateWithCredential(user, credential);
         } catch (error) {
-          alert("Your current password is incorrect.");
+          setError("Incorrect password. Please try again.");
           return;
         }
 
         // Check if the email has changed
         if (email !== user.email) {
-            
-          await updateEmail(user, email);
-          alert("Email updated!");
+          verifyBeforeUpdateEmail(user, email);
+          try {
+            await updateEmail(user, email);
+          } catch (error) {
+            if (error.code === "auth/operation-not-allowed") {
+              setError(
+                `Verification email sent to ${email}. You will be logged out on all devices.`
+              );
+            } else {
+              setError("An error occurred while updating the email.");
+            }
+            console.error(error);
+            return;
+          }
         }
 
         // Check if the password has changed
@@ -112,18 +125,17 @@ export const AccountDetails = () => {
 
         if (username !== userSnap.data().username) {
           await updateDoc(userDoc, { username: username });
-          alert("Username updated!");
         }
-        resetForm();
       } else {
-        alert(
+        setError(
           "You can only update your account details if you signed up with email and password."
         );
       }
     } catch (error) {
       console.error(error);
-      alert("An error occurred while updating the account details.");
+      setError("An error occurred while updating the account details.");
     }
+    resetForm();
   };
 
   return (
@@ -209,6 +221,7 @@ export const AccountDetails = () => {
             </form>
           </div>
         </div>
+        {error && <p className="error-message">{error}</p>}
         <div className="account-details-btns">
           <button
             id="editBtn"
@@ -221,7 +234,7 @@ export const AccountDetails = () => {
             id="submitBtn"
             onClick={handleSubmit}
             style={{ display: isEditing ? "block" : "none" }}
-            key={isEditing ? 'editing' : 'not-editing'}
+            key={isEditing ? "editing" : "not-editing"}
           >
             Submit
           </button>

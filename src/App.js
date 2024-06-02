@@ -5,9 +5,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./config/firebase";
 
 import Home from "./Pages/Home";
-import LoginPage from "./Pages/account-mangement/login";
-import RegisterPage from "./Pages/account-mangement/register";
-import ManageProfile from "./Pages/account-mangement/manage-profile";
+import LoginPage from "./Pages/account-management/login";
+import RegisterPage from "./Pages/account-management/register";
+import ManageProfile from "./Pages/account-management/manage-profile";
 import Dashboard from "./Pages/dashboard/dashboard";
 
 import "./App.css";

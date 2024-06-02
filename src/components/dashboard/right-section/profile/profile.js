@@ -8,7 +8,7 @@ export const Profile = () => {
         <div className="left">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" />
           <div className="user">
-            <h5>username</h5>
+            <h5>MobExe</h5>
             <a href="#">Basic Plan</a>
           </div>
         </div>
