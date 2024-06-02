@@ -106,6 +106,7 @@ export const Register = () => {
               dob,
               goals,
               profilePic: downloadURL,
+              plan: "Basic",
             });
             window.location.href = "/";
           });
