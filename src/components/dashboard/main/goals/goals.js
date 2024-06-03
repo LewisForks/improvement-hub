@@ -81,9 +81,14 @@ export const Goals = () => {
   }, [menuOpen]);
 
   const handleNewGoal = () => {
-    if (goals.length >= 4) {
+    if (incompleteGoals.length >= 4) {
       setErrorMessage(
         "You can only have 4 goals at a time. Mark one as complete or delete one to create a new one."
+      );
+      setErrorModalIsOpen(true);
+    } else if (goals.length > 20) {
+      setErrorMessage(
+        "You have reached the maximum number of goals. Please delete some goals to create a new one."
       );
       setErrorModalIsOpen(true);
     } else {
