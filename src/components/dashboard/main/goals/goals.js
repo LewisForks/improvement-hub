@@ -16,7 +16,7 @@ import Modal from "react-modal";
 import "./goals.css";
 import "./createGoalModal.css";
 
-Modal.setAppElement("#root"); // This line is needed for accessibility reasons
+Modal.setAppElement("#root"); // accessibility
 
 export const Goals = () => {
   const [goals, setGoals] = useState([]);
