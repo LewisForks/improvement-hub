@@ -8,6 +8,8 @@ import {
   doc,
   addDoc,
   deleteDoc,
+  updateDoc,
+  setDoc,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import Modal from "react-modal";
@@ -24,7 +26,16 @@ export const Goals = () => {
   const [newGoalTitle, setNewGoalTitle] = useState("");
   const [newGoalDescription, setNewGoalDescription] = useState("");
 
+  //edit goals
+
+  const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
+  const [updateGoalId, setUpdateGoalId] = useState(null);
+  const [updateGoalTitle, setUpdateGoalTitle] = useState("");
+  const [updateGoalDescription, setUpdateGoalDescription] = useState("");
+
   const [menuOpen, setMenuOpen] = useState(null);
+
+  const incompleteGoals = goals.filter((goal) => !goal.completed);
 
   const auth = getAuth();
   const db = getFirestore();
@@ -84,6 +95,7 @@ export const Goals = () => {
     await addDoc(collection(db, "goals"), {
       title: newGoalTitle,
       description: newGoalDescription,
+      completed: false,
       userId: auth.currentUser.uid,
     });
     setModalIsOpen(false);
@@ -101,14 +113,48 @@ export const Goals = () => {
     setMenuOpen(goalId);
   };
 
-  // Handle "Mark as Complete"
-  const handleCompleteGoal = (goalId) => {
-    // Update the goal's status to "complete"
+  const handleCompleteGoal = async (goalId) => {
+    try {
+      await setDoc(
+        doc(db, "goals", goalId),
+        { completed: true },
+        { merge: true }
+      );
+    } catch (error) {
+      console.error("Error marking goal as complete: ", error);
+    }
   };
 
-  // Handle "Edit"
-  const handleEditGoal = (goalId) => {
+  const handleEditGoal = (goalId, goalTitle, goalDescription) => {
     // Open the edit modal for the selected goal
+    setUpdateGoalId(goalId);
+    setUpdateGoalTitle(goalTitle);
+    setUpdateGoalDescription(goalDescription);
+    setUpdateModalIsOpen(true);
+  };
+
+  const handleUpdateGoal = async (event) => {
+    event.preventDefault();
+
+    console.log(updateGoalTitle, updateGoalDescription, updateGoalId);
+
+    try {
+      await updateDoc(doc(db, "goals", updateGoalId), {
+        title: updateGoalTitle,
+        description: updateGoalDescription,
+      });
+
+      handleCloseUpdateGoal();
+    } catch (error) {
+      console.error("Error updating goal: ", error);
+    }
+  };
+
+  const handleCloseUpdateGoal = () => {
+    setUpdateModalIsOpen(false);
+    setUpdateGoalId(null);
+    setNewGoalTitle("");
+    setNewGoalDescription("");
   };
 
   // Delete the selected goal
@@ -153,6 +199,29 @@ export const Goals = () => {
       </Modal>
 
       <Modal
+        isOpen={updateModalIsOpen}
+        onRequestClose={() => setUpdateModalIsOpen(false)}
+      >
+        <h2>Edit Goal</h2>
+        <form>
+          <input
+            value={updateGoalTitle}
+            onChange={(e) => setUpdateGoalTitle(e.target.value)}
+            placeholder="Goal Title"
+          />
+          <textarea
+            value={updateGoalDescription}
+            onChange={(e) => setUpdateGoalDescription(e.target.value)}
+            placeholder="Goal Description"
+          />
+        </form>
+        <div>
+          <button onClick={handleUpdateGoal}>Submit</button>
+          <button onClick={() => handleCloseUpdateGoal()}>Close</button>
+        </div>
+      </Modal>
+
+      <Modal
         isOpen={errorModalIsOpen}
         onRequestClose={() => setErrorModalIsOpen(false)}
       >
@@ -164,8 +233,8 @@ export const Goals = () => {
       </Modal>
 
       <div className="goals">
-        {goals.length > 0 ? (
-          goals.slice(0, 4).map((goal) => (
+        {incompleteGoals.length > 0 ? (
+          incompleteGoals.slice(0, 4).map((goal) => (
             <div className="item" key={goal.id}>
               <div className="info">
                 <h5>{goal.title}</h5>

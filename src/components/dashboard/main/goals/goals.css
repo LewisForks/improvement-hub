@@ -45,7 +45,7 @@ main .goals .item .qrcode {
     width: auto;
 }
 
-main .goals .item i {
+main .goals .item .bx-x {
     color: #fff;
     font-size: 10rem;
 }
