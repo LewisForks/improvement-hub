@@ -130,11 +130,14 @@ export const Goals = () => {
     }
   };
 
-  const handleEditGoal = (goalId, goalTitle, goalDescription) => {
-    // Open the edit modal for the selected goal
+  const handleEditGoal = (goalId) => {
+    // finds selected goal info
+    const selectedGoal = goals.find((goal) => goal.id === goalId);
+
+    // opens and sets value for updateGoal modal
     setUpdateGoalId(goalId);
-    setUpdateGoalTitle(goalTitle);
-    setUpdateGoalDescription(goalDescription);
+    setUpdateGoalTitle(selectedGoal.title);
+    setUpdateGoalDescription(selectedGoal.description);
     setUpdateModalIsOpen(true);
   };
 
