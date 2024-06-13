@@ -8,7 +8,7 @@ Improvement Hub will provide tools for to-do lists, reading tracking, workout lo
 
 ## ✨ Key Features
 
-- **User Registration and Profiles**: Sign up via email, Google, or social media, and create a personalized profile with your goals and achievements. <img src="https://img.shields.io/badge/-4CAF50?style=flat-square&logo=check&logoColor=white" alt="Complete">
+- **User Registration and Profiles**: Sign up via email, Google, or social media, and create a personalized profile with your goals and achievements. <img src="https://img.shields.io/badge/-Complete-4CAF50?style=flat-square&logo=check&logoColor=white" alt="Complete">
 - **Dashboard**: View your daily tasks, progress, and achievements all in one place. <img src="https://img.shields.io/badge/In%20Progress-FFA500?style=flat-square&logo=hourglass-half&logoColor=white" alt="In Progress">
 - **To-Do Lists**: Customizable lists with categories, recurring tasks, and progress tracking.
 - **Reading Tracker**: Log your reading progress, track pages read, and manage your library.
