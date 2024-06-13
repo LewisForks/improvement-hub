@@ -176,6 +176,10 @@ export const Goals = () => {
     }
   };
 
+  const showCompletedGoals = window.location.pathname === "/account/goals";
+
+  const filteredGoals = showCompletedGoals ? goals : incompleteGoals;
+
   return (
     <div>
       <div className="separator">
@@ -243,8 +247,8 @@ export const Goals = () => {
       </Modal>
 
       <div className="goals">
-        {incompleteGoals.length > 0 ? (
-          incompleteGoals.slice(0, 4).map((goal) => (
+        {filteredGoals.length > 0 ? (
+          filteredGoals.map((goal) => (
             <div className="item" key={goal.id}>
               <div className="info">
                 <h5>{goal.title}</h5>
@@ -265,9 +269,7 @@ export const Goals = () => {
                     <button onClick={() => handleCompleteGoal(goal.id)}>
                       Mark as Complete
                     </button>
-                    <button onClick={() => handleEditGoal(goal.id)}>
-                      Edit
-                    </button>
+                    <button onClick={() => handleEditGoal(goal.id)}>Edit</button>
                     <button onClick={() => handleDeleteGoal(goal.id)}>
                       Delete
                     </button>
