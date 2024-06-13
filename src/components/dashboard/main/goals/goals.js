@@ -6,6 +6,7 @@ import {
   where,
   onSnapshot,
   doc,
+  getDoc,
   addDoc,
   deleteDoc,
   updateDoc,
@@ -16,7 +17,6 @@ import Modal from "react-modal";
 import "./goals.css";
 import "./createGoalModal.css";
 
-import { Link } from 'react-router-dom';
 import { useLocation, Link } from "react-router-dom";
 
 Modal.setAppElement("#root"); // accessibility
@@ -123,15 +123,19 @@ export const Goals = () => {
     setMenuOpen(goalId);
   };
 
-  const handleCompleteGoal = async (goalId) => {
+  const handleCompleteGoalToggle = async (goalId) => {
     try {
+      const goalRef = doc(db, "goals", goalId);
+      const goalDoc = await getDoc(goalRef);
+      const isCompleted = goalDoc.data().completed;
+
       await setDoc(
-        doc(db, "goals", goalId),
-        { completed: true },
+        goalRef,
+        { completed: !isCompleted },
         { merge: true }
       );
     } catch (error) {
-      console.error("Error marking goal as complete: ", error);
+      console.error("Error toggling goal completion: ", error);
     }
   };
 
@@ -178,10 +182,6 @@ export const Goals = () => {
       console.error("Error deleting goal: ", error);
     }
   };
-
-  const showCompletedGoals = window.location.pathname === "/account/goals";
-
-  const filteredGoals = showCompletedGoals ? goals : incompleteGoals;
 
   return (
     <div>
@@ -250,9 +250,9 @@ export const Goals = () => {
       </Modal>
 
       <div className="goals">
-        {filteredGoals.length > 0 ? (
-          filteredGoals.map((goal) => (
-            <div className="item" key={goal.id}>
+        {incompleteGoals.length > 0 ? (
+          incompleteGoals.slice(0, 4).map((goal) => (
+            <div className="item active" key={goal.id}>
               <div className="info">
                 <h5>{goal.title}</h5>
                 <p>{goal.description}</p>
@@ -269,10 +269,12 @@ export const Goals = () => {
                     tabIndex="0"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <button onClick={() => handleCompleteGoal(goal.id)}>
+                    <button onClick={() => handleCompleteGoalToggle(goal.id)}>
                       Mark as Complete
                     </button>
-                    <button onClick={() => handleEditGoal(goal.id)}>Edit</button>
+                    <button onClick={() => handleEditGoal(goal.id)}>
+                      Edit
+                    </button>
                     <button onClick={() => handleDeleteGoal(goal.id)}>
                       Delete
                     </button>
