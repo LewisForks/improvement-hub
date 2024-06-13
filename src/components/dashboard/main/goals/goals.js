@@ -17,6 +17,7 @@ import "./goals.css";
 import "./createGoalModal.css";
 
 import { Link } from 'react-router-dom';
+import { useLocation, Link } from "react-router-dom";
 
 Modal.setAppElement("#root"); // accessibility
 
@@ -36,8 +37,10 @@ export const Goals = () => {
   const [updateGoalDescription, setUpdateGoalDescription] = useState("");
 
   const [menuOpen, setMenuOpen] = useState(null);
+  const location = useLocation();
 
   const incompleteGoals = goals.filter((goal) => !goal.completed);
+  const completedGoals = goals.filter((goal) => goal.completed);
 
   const auth = getAuth();
   const db = getFirestore();
@@ -289,6 +292,40 @@ export const Goals = () => {
             <i className="bx bx-x"></i>
           </div>
         )}
+        {location.pathname === "/account/goals" &&
+          completedGoals.length > 0 &&
+          completedGoals.map((goal) => (
+            <div className="item completed" key={goal.id}>
+              <div className="info">
+                <h5>{goal.title}</h5>
+                <p>{goal.description}</p>
+              </div>
+              <div className="menu">
+                <i
+                  className="bx bx-dots-vertical-rounded menu-button"
+                  onClick={() => handleOpenMenu(goal.id)}
+                ></i>
+                {menuOpen === goal.id && (
+                  <div
+                    className="context-menu"
+                    onBlur={() => setMenuOpen(null)}
+                    tabIndex="0"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button onClick={() => handleCompleteGoalToggle(goal.id)}>
+                      Mark as Incomplete
+                    </button>
+                    <button onClick={() => handleEditGoal(goal.id)}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDeleteGoal(goal.id)}>
+                      Delete
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );
