@@ -1,17 +1,16 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAeF8f5vMjTBx53btBAzinbNEIgjgnfVQg",
-  authDomain: "improvementhub-16b0d.firebaseapp.com",
-  projectId: "improvementhub-16b0d",
-  storageBucket: "improvementhub-16b0d.appspot.com",
-  messagingSenderId: "462575771878",
-  appId: "1:462575771878:web:5236afc51ccbf33332db27",
-  measurementId: "G-QL8DZSW5CC"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -21,4 +20,3 @@ export const db = getFirestore(app);
 export const storage = getStorage(app);
 
 export { reauthenticateWithCredential, EmailAuthProvider }
-const analytics = getAnalytics(app);
