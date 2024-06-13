@@ -10,8 +10,10 @@ import '../../components/Layout/Sidebar/Sidebar.css'
 const ManageGoalsPage = () => {
   return (
     <div>
+      <div className="container">
       <Sidebar />
       <ManageGoals />
+      </div>
     </div>
   );
 };
