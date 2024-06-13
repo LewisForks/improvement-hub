@@ -1,11 +1,11 @@
-.container .right-section .stats {
+.dashboard-container .right-section .stats {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-top: 20px;
     gap: 20px;
 }
 
-.container .right-section .stats .item {
+.dashboard-container .right-section .stats .item {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -15,32 +15,32 @@
     border-radius: 20px;
 }
 
-.container .right-section .stats .item .top {
+.dashboard-container .right-section .stats .item .top {
     display: flex;
     flex-direction: column;
     align-items: start;
 }
 
-.container .right-section .stats .top p {
+.dashboard-container .right-section .stats .top p {
     font-size: 16px;
     color: #8EA3B7;
     font-weight: 500;
 }
 
-.container .right-section .stats .item .bottom {
+.dashboard-container .right-section .stats .item .bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.container .right-section .stats .item .bottom .line {
+.dashboard-container .right-section .stats .item .bottom .line {
     width: 4px;
     height: 30px;
     background: #369FFF;
     border-radius: 20px;
 }
 
-.container .right-section .stats .item .bottom h3 {
+.dashboard-container .right-section .stats .item .bottom h3 {
     font-size: 40px;
     color: #006ED3;
 }
