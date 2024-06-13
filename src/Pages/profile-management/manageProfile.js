@@ -1,6 +1,6 @@
 import React from "react";
-import { ManageProfile } from "../../components/account-management/manage-profile";
-import "./Auth.css";
+import { ManageProfile } from "../../components/profile-management/manageProfile";
+import "../account-management/Auth.css";
 import "../../App.css";
 
 import { Header } from "../../components/Layout/Header/Header";
