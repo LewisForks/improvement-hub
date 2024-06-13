@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# 🚀 Improvement Hub
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to **Improvement Hub** - a personal development platform designed to help you achieve your goals and develop better habits. This project is a Work In Progress (WIP), and I'm constantly adding new features!
 
-## Available Scripts
+## 📋 Overview
 
-In the project directory, you can run:
+Improvement Hub will provide tools for to-do lists, reading tracking, workout logs, habit tracking, and goal setting, all gamified with a points system to keep you motivated.
 
-### `npm start`
+## ✨ Key Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **User Registration and Profiles**: Sign up via email, Google, or social media, and create a personalized profile with your goals and achievements. <img src="https://img.shields.io/badge/Complete-4CAF50?style=flat-square&logo=check&logoColor=white" alt="Complete">
+- **Dashboard**: View your daily tasks, progress, and achievements all in one place. <img src="https://img.shields.io/badge/In%20Progress-FFA500?style=flat-square&logo=hourglass-half&logoColor=white" alt="In Progress">
+- **To-Do Lists**: Customizable lists with categories, recurring tasks, and progress tracking.
+- **Reading Tracker**: Log your reading progress, track pages read, and manage your library.
+- **Workout Log**: Pre-made routines and a custom workout creator with progress charts.
+- **Habit Tracker**: Track daily, weekly, or monthly habits with visual streaks and progress reports.
+- **Goal Setting**: Set and track your short-term and long-term goals with visual progress indicators. <img src="https://img.shields.io/badge/In%20Progress-FFA500?style=flat-square&logo=hourglass-half&logoColor=white" alt="In Progress">
+- **Points System**: Earn points for completing tasks and reaching milestones, with leaderboards to foster a competitive spirit.
+- **Community Features**: Participate in forums, discussion boards, and community challenges.
+- **Integration with Other Apps**: Sync with calendar apps and fitness trackers, with an API for custom integrations.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Technology Stack
 
-### `npm test`
+- **Frontend**: 
+  ![HTML](https://img.shields.io/badge/-HTML-E34F26?style=flat-square&logo=html5&logoColor=white)
+  ![CSS](https://img.shields.io/badge/-CSS-1572B6?style=flat-square&logo=css3&logoColor=white)
+  ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+  ![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black)
+- **Backend and Services**:
+  ![Firebase](https://img.shields.io/badge/-Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black)
+  ![Firestore](https://img.shields.io/badge/-Firestore-FFCA28?style=flat-square&logo=firebase&logoColor=black)
+  ![Cloud Functions](https://img.shields.io/badge/-Cloud_Functions-FFCA28?style=flat-square&logo=firebase&logoColor=black)
+  ![Firebase Storage](https://img.shields.io/badge/-Firebase_Storage-FFCA28?style=flat-square&logo=firebase&logoColor=black)
+- **DevOps**:
+  ![Firebase Hosting](https://img.shields.io/badge/-Firebase_Hosting-FFCA28?style=flat-square&logo=firebase&logoColor=black)
+  ![Cloud Messaging](https://img.shields.io/badge/-Cloud_Messaging-FFCA28?style=flat-square&logo=firebase&logoColor=black)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## 📞 Contact
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Feel free to reach out if you have any questions or want to connect!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+[![Email](https://img.shields.io/badge/-Email-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:lewis@raybould.co)
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lewis-raybould-ba7034244)
+[![Twitter](https://img.shields.io/badge/-Twitter-1DA1F2?style=flat-square&logo=twitter&logoColor=white)](https://twitter.com/lewisecom)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Enjoy exploring Improvement Hub! 🌟
