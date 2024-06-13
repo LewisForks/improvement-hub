@@ -16,6 +16,8 @@ import Modal from "react-modal";
 import "./goals.css";
 import "./createGoalModal.css";
 
+import { Link } from 'react-router-dom';
+
 Modal.setAppElement("#root"); // accessibility
 
 export const Goals = () => {
@@ -131,7 +133,7 @@ export const Goals = () => {
   };
 
   const handleEditGoal = (goalId) => {
-    // finds selected goal info
+    // finds selected goal information
     const selectedGoal = goals.find((goal) => goal.id === goalId);
 
     // opens and sets value for updateGoal modal
@@ -182,7 +184,7 @@ export const Goals = () => {
           <button className="btn" onClick={handleNewGoal}>
             Create New
           </button>
-          <a href="#">Manage Goals</a>
+          <Link to="/account/goals">Manage Goals</Link>
         </div>
       </div>
 
