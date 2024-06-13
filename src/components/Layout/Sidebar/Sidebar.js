@@ -1,5 +1,5 @@
 import "./Sidebar.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 export const Sidebar = () => {
   const location = useLocation();
@@ -11,38 +11,38 @@ export const Sidebar = () => {
           <i className="bx bx-log-out-circle"></i>
         </button>
         {/* <img alt="logo" src="" /> */}
-        <a href="/dashboard">ImproveHub</a>
+        <Link to="/dashboard">ImproveHub</Link>
       </div>
 
       <div className="sidebar">
         <div className="item" id={location.pathname === "/dashboard" ? "active" : ""}>
           <i className="bx bx-home-alt-2"></i>
-          <a href="#">Overview</a>
+          <Link to="/dashboard">Overview</Link>
         </div>
         <div className="item" id={location.pathname === "/dashboard/features" ? "active" : ""}>
           <i className="bx bx-grid-alt"></i>
-          <a href="">All Features</a>
+          <Link to="">All Features</Link>
         </div>
         <div className="item" id={location.pathname === "/dashboard/resources" ? "active" : ""}>
           <i className="bx bx-folder"></i>
-          <a href="#">Resources</a>
+          <Link to="#">Resources</Link>
         </div>
         <div className="item" id={location.pathname === "/dashboard/support" ? "active" : ""}>
           <i className="bx bx-message-square-dots"></i>
-          <a href="#">Support</a>
+          <Link to="#">Support</Link>
         </div>
         <div className="item" id={location.pathname === "/dashboard/settings" ? "active" : ""}>
           <i className="bx bx-cog"></i>
-          <a href="#">Settings</a>
+          <Link to="#">Settings</Link>
         </div>
       </div>
 
       <div className="upgrade">
         <h5>Want all features?</h5>
         <div className="link">
-          <a href="#">
+          <Link to="#">
             Upgrade to <b>PRO</b>
-          </a>
+          </Link>
           <i className="bx bxs-chevron-right"></i>
         </div>
       </div>
