@@ -83,21 +83,21 @@
   background-color: rgb(150, 24, 24);
 }
 
-.goals .item:nth-child(1) {
+.goals .item.active:nth-child(1) {
   background: #006ed3;
 }
 
-.goals .item:nth-child(2) {
+.goals .item.active:nth-child(2) {
   background: #ff993a;
 }
 
-.goals .item:nth-child(3) {
+.goals .item.active:nth-child(3) {
   background: #8ac53e;
 }
 
-.goals .item:nth-child(4) {
+.goals .item.active:nth-child(4) {
   background: #ffd043;
 }
-.goals .item:nth-child(n+5) {
+.goals .item.completed {
   background: #8ac53e;
 }
