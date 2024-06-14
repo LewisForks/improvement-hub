@@ -13,7 +13,7 @@ export const Login = () => {
   const handleRedirect = () => {
     // Redirect to the home page for now after successful login
     if (auth.currentUser) {
-      navigate("/account/manage");
+      navigate("/dashboard");
     } else {
       console.error("User not logged in");
     }
