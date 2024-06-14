@@ -128,12 +128,16 @@ export const Goals = () => {
       const goalRef = doc(db, "goals", goalId);
       const goalDoc = await getDoc(goalRef);
       const isCompleted = goalDoc.data().completed;
+      const incompleteGoalsCount = incompleteGoals.length;
 
-      await setDoc(
-        goalRef,
-        { completed: !isCompleted },
-        { merge: true }
-      );
+      if (isCompleted && incompleteGoalsCount >= 4) {
+        setErrorMessage(
+          "You can only have 4 incomplete goals at a time. Mark one as complete or delete one to mark this goal as incomplete."
+        );
+        setErrorModalIsOpen(true);
+      } else {
+        await setDoc(goalRef, { completed: !isCompleted }, { merge: true });
+      }
     } catch (error) {
       console.error("Error toggling goal completion: ", error);
     }
