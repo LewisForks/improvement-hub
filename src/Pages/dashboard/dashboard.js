@@ -16,12 +16,7 @@ import { AccountStatistics } from "../../components/dashboard/right-section/acco
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [user, loading] = useAuthState(auth);
-
-  if (loading) {
-    return loading ? <div>Loading...</div> : null;
-  }
-
+  const [user] = useAuthState(auth);
   if (!user) {
     navigate("/signin");
     return null;
@@ -29,19 +24,19 @@ const Dashboard = () => {
 
   return (
     <div>
-        <div className="dashboard-container">
-          <Sidebar />
-          <main>
-            <DashboardHeader />
-            <Goals />
-            <Friends />
-          </main>
+      <div className="dashboard-container">
+        <Sidebar />
+        <main>
+          <DashboardHeader />
+          <Goals />
+          <Friends />
+        </main>
 
-          <aside className="right-section">
-            <Profile />
-            <AccountDetails />
-            <AccountStatistics />
-          </aside>
+        <aside className="right-section">
+          <Profile />
+          <AccountDetails />
+          <AccountStatistics />
+        </aside>
       </div>
     </div>
   );

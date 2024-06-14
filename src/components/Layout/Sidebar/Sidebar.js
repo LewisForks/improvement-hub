@@ -21,7 +21,7 @@ export const Sidebar = () => {
         </div>
         <div className="item" id={location.pathname === "/dashboard/features" ? "active" : ""}>
           <i className="bx bx-grid-alt"></i>
-          <Link to="">All Features</Link>
+          <Link to="#">All Features</Link>
         </div>
         <div className="item" id={location.pathname === "/dashboard/resources" ? "active" : ""}>
           <i className="bx bx-folder"></i>
