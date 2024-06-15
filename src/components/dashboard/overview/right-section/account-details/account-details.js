@@ -2,7 +2,7 @@ import "./account-details.css";
 import React, { useState, useEffect } from "react";
 import "./account-details.css";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db, auth } from "../../../../config/firebase";
+import { db, auth } from "../../../../../config/firebase";
 import {
   EmailAuthProvider,
   reauthenticateWithCredential,

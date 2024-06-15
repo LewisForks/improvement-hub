@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 
 import { Sidebar } from "../../components/Layout/Sidebar/Sidebar";
 
-import { DashboardHeader } from "../../components/dashboard/main/header/header.js";
-import { Goals } from "../../components/dashboard/main/goals/goals.js";
-import { Friends } from "../../components/dashboard/main/friends/friends.js";
-import { Profile } from "../../components/dashboard/right-section/profile/profile.js";
-import { AccountDetails } from "../../components/dashboard/right-section/account-details/account-details.js";
-import { AccountStatistics } from "../../components/dashboard/right-section/account-statistics/account-statistics.js";
+import { DashboardHeader } from "../../components/dashboard/overview/main/header/header.js";
+import { Goals } from "../../components/dashboard/overview/main/goals/goals.js";
+import { Friends } from "../../components/dashboard/overview/main/friends/friends.js";
+import { Profile } from "../../components/dashboard/overview/right-section/profile/profile.js";
+import { AccountDetails } from "../../components/dashboard/overview/right-section/account-details/account-details.js";
+import { AccountStatistics } from "../../components/dashboard/overview/right-section/account-statistics/account-statistics.js";
 
 const Dashboard = () => {
   const navigate = useNavigate();

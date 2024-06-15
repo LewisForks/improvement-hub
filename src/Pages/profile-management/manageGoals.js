@@ -1,6 +1,6 @@
 import React from "react";
 import { ManageGoals } from "../../components/profile-management/manageGoals";
-import { Goals } from "../../components/dashboard/main/goals/goals";
+import { Goals } from "../../components/dashboard/overview/main/goals/goals";
 import "../account-management/Auth.css";
 import "../../App.css";
 import "./manageGoals.css";

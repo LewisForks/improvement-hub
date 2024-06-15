@@ -1,6 +1,6 @@
 import "./header.css";
 import { useState, useEffect } from "react";
-import { db, auth } from "../../../../config/firebase";
+import { db, auth } from "../../../../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 export const DashboardHeader = () => {
