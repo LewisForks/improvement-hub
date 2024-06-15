@@ -60,15 +60,17 @@
 
 .goals .item .context-menu {
   position: absolute;
-  top: 30px; /* Adjust this value as needed */
-  right: 10px; /* Adjust this value as needed */
+  top: 30px;
+  right: 10px;
   display: flex;
   flex-direction: column;
+  background-color: #000000ec;
+  border-radius: 10px;
 }
 
 .goals .item .context-menu button {
-  background-color: #000000ec;
   color: white;
+  background-color: transparent;
   padding: 5px 20px;
   font-size: 1.3rem;
 }
