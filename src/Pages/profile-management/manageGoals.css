@@ -15,7 +15,7 @@
     margin-top: 20px;
 }
 
-.goals-container .info {
+.goals-container .manage-goals .separator .info {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -26,7 +26,7 @@
     font-size: 3rem;
 }
 
-.goals-container .info a {
+.goals-container .manage-goals .separator .info a {
     display: none;
 }
 
