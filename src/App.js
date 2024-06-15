@@ -3,11 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  useNavigate,
 } from "react-router-dom";
-
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./config/firebase";
 
 import Home from "./Pages/Home";
 import LoginPage from "./Pages/account-management/login";
