@@ -9,7 +9,7 @@ import Home from "./Pages/Home";
 import LoginPage from "./Pages/account-management/login";
 import RegisterPage from "./Pages/account-management/register";
 import ManageProfile from "./Pages/profile-management/manageProfile";
-import Dashboard from "./Pages/dashboard/dashboard";
+import Dashboard from "./Pages/dashboard/overview/overview";
 import ManageGoals from "./Pages/profile-management/manageGoals";
 
 import "./App.css";
@@ -23,6 +23,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/account/manage" element={<ManageProfile />} />
         <Route path="/account/goals" element={<ManageGoals />} />
+        <Route path="/dashboard/all-features" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>

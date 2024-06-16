@@ -19,9 +19,9 @@ export const Sidebar = () => {
           <i className="bx bx-home-alt-2"></i>
           <Link to="/dashboard">Overview</Link>
         </div>
-        <div className="item" id={location.pathname === "/dashboard/features" ? "active" : ""}>
+        <div className="item" id={location.pathname === "/dashboard/all-features" ? "active" : ""}>
           <i className="bx bx-grid-alt"></i>
-          <Link to="#">All Features</Link>
+          <Link to="/dashboard/all-features">All Features</Link>
         </div>
         <div className="item" id={location.pathname === "/dashboard/resources" ? "active" : ""}>
           <i className="bx bx-folder"></i>
