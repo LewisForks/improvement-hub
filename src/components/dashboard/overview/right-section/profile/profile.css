@@ -1,17 +1,17 @@
-.dashboard-container .right-section .top {
+.right-section .top {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.dashboard-container .right-section .top>i {
+.right-section .top>i {
     color: #909090;
     position: relative;
     cursor: pointer;
     font-size: 24px;
 }
 
-.dashboard-container .right-section .top>i::after {
+.right-section .top>i::after {
     content: "";
     width: 8px;
     height: 8px;
@@ -21,7 +21,7 @@
     right: 0;
 }
 
-.dashboard-container .right-section .top .profile {
+.right-section .top .profile {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -32,16 +32,16 @@
     border-radius: 16px;
 }
 
-.dashboard-container .right-section .top .profile>i {
+.right-section .top .profile>i {
     cursor: pointer;
 }
 
-.dashboard-container .right-section .top .profile .left {
+.right-section .top .profile .left {
     display: flex;
     gap: 15px;
 }
 
-.dashboard-container .right-section .top .profile .left img {
+.right-section .top .profile .left img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -49,11 +49,11 @@
     object-position: top;
 }
 
-.dashboard-container .right-section .top .profile .left .user h5 {
+.right-section .top .profile .left .user h5 {
     font-size: 14px;
     font-weight: 600;
 }
 
-.dashboard-container .right-section .top .profile .left .user a {
+.right-section .top .profile .left .user a {
     font-size: 12px;
 }
