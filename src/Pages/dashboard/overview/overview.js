@@ -23,7 +23,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
+    <div className="overview">
       <div className="dashboard-container">
         <Sidebar />
         <main>
