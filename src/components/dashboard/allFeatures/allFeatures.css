@@ -1,0 +1,53 @@
+.dashboard-container main .separator h4 {
+    font-size: 3rem;
+    text-align: center;
+}
+
+.dashboard-container .feature-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.dashboard-container .feature-list .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+    padding: 15px;
+    background: #131517;
+    border-radius: 20px;
+}
+
+.dashboard-container .feature-list .item .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboard-container .feature-list .top p {
+    font-size: 2.5rem;
+    color: #8EA3B7;
+    font-weight: 500;
+}
+
+.dashboard-container .feature-list .item div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.dashboard-container .feature-list .item div img {
+    width: 50px;
+    height: auto;
+}
+
+.dashboard-container .feature-list .item div h3 {
+    /* font-size: 40px;
+    color: #006ED3; */
+    font-size: 3rem;
+    /* color: #006ED3; */
+    
+}
