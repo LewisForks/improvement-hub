@@ -15,9 +15,14 @@
     flex-direction: column;
     justify-content: space-between;
     height: 150px;
-    padding: 15px;
+    padding: 25px;
     background: #131517;
     border-radius: 20px;
+}
+
+.dashboard-container .feature-list .item:hover {
+    background: #101214;
+    cursor: pointer;
 }
 
 .dashboard-container .feature-list .item .top {
@@ -49,5 +54,4 @@
     color: #006ED3; */
     font-size: 3rem;
     /* color: #006ED3; */
-    
 }
