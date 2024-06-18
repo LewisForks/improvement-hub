@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 
 import Home from "./Pages/Home";
-import LoginPage from "./Pages/account-management/login";
-import RegisterPage from "./Pages/account-management/register";
+import LoginPage from "./Pages/accountManagement/login";
+import RegisterPage from "./Pages/accountManagement/register";
 import ManageProfile from "./Pages/profileManagement/manageProfile";
 import Dashboard from "./Pages/dashboard/overview/overview";
 import ManageGoals from "./Pages/profileManagement/manageGoals";
