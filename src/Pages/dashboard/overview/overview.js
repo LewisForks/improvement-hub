@@ -12,6 +12,7 @@ import { Goals } from "../../../components/dashboard/overview/main/goals/goals.j
 import { Friends } from "../../../components/dashboard/overview/main/friends/friends.js";
 import { Profile } from "../../../components/dashboard/overview/right-section/profile/profile.js";
 import { AccountDetails } from "../../../components/dashboard/overview/right-section/accountDetails/accountDetails.js";
+import { Reminders } from "../../../components/dashboard/overview/right-section/reminders/reminders.js";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const Dashboard = () => {
         <aside className="right-section">
           <Profile />
           <AccountDetails />
+          <Reminders />
         </aside>
       </div>
     </div>
