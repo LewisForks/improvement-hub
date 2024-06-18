@@ -11,7 +11,7 @@ import { DashboardHeader } from "../../../components/dashboard/overview/main/hea
 import { Goals } from "../../../components/dashboard/overview/main/goals/goals.js";
 import { Friends } from "../../../components/dashboard/overview/main/friends/friends.js";
 import { Profile } from "../../../components/dashboard/overview/right-section/profile/profile.js";
-import { AccountDetails } from "../../../components/dashboard/overview/right-section/account-details/account-details.js";
+import { AccountDetails } from "../../../components/dashboard/overview/right-section/accountDetails/accountDetails.js";
 
 const Dashboard = () => {
   const navigate = useNavigate();
