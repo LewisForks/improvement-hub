@@ -1,4 +1,4 @@
-import "./account-statistics.css";
+import "./accountStatistics.css";
 
 export const AccountStatistics = () => {
   return (
@@ -10,8 +10,7 @@ export const AccountStatistics = () => {
       <div className="stats">
         <div className="item">
           <div className="top">
-            <p>Current</p>
-            <p>Account Plan</p>
+            <p>Current Account Plan</p>
           </div>
           <div className="bottom">
             <div className="line"></div>
@@ -20,8 +19,8 @@ export const AccountStatistics = () => {
         </div>
         <div className="item">
           <div className="top">
-            <p>Workouts</p>
-            <p>Completed</p>
+            <p>Workouts Complete</p>
+
           </div>
           <div className="bottom">
             <div className="line"></div>
@@ -39,8 +38,25 @@ export const AccountStatistics = () => {
         </div>
         <div className="item">
           <div className="top">
-            <p>Habits Left</p>
-            <p>To Complete</p>
+            <p>Habits Left Today</p>
+          </div>
+          <div className="bottom">
+            <div className="line"></div>
+            <h3>0</h3>
+          </div>
+        </div>
+        <div className="item">
+          <div className="top">
+            <p>Goals Complete</p>
+          </div>
+          <div className="bottom">
+            <div className="line"></div>
+            <h3>0</h3>
+          </div>
+        </div>
+        <div className="item">
+          <div className="top">
+            <p>IDK WHAT ELSE</p>
           </div>
           <div className="bottom">
             <div className="line"></div>
