@@ -8,6 +8,7 @@ import { Sidebar } from '../../../components/Layout/Sidebar/Sidebar.js';
 
 import { AllFeatures } from '../../../components/dashboard/allFeatures/allFeatures.js';
 import { Profile } from '../../../components/dashboard/overview/right-section/profile/profile.js';
+import { WhatsNew } from '../../../components/dashboard/allFeatures/whatsNew.js';
 
 const AllFeaturesPage = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const AllFeaturesPage = () => {
         </main>
         <aside className="right-section">
           <Profile />
+          <WhatsNew />
         </aside>
       </div>
     </div>
