@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import "./allFeatures.css";
+import "./featureList.css";
 
-export const AllFeatures = () => {
+export const FeatureList = () => {
   return (
     <div>
       <div className="separator">
