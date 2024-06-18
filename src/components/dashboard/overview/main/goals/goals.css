@@ -61,7 +61,7 @@
 .goals .item .context-menu {
   position: absolute;
   top: 30px;
-  right: 10px;
+  right: 15px;
   display: flex;
   flex-direction: column;
   background-color: #000000ec;
