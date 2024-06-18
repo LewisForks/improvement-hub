@@ -1,5 +1,5 @@
 import React from "react";
-import { ManageProfile } from "../../components/profile-management/manageProfile";
+import { ManageProfile } from "../../components/accountManagement/manageProfile";
 import "../accountManagement/Auth.css";
 import "../../App.css";
 

@@ -8,9 +8,9 @@ import {
 import Home from "./Pages/Home";
 import LoginPage from "./Pages/accountManagement/login";
 import RegisterPage from "./Pages/accountManagement/register";
-import ManageProfile from "./Pages/profileManagement/manageProfile";
+import ManageProfile from "./Pages/accountManagement/manageProfile";
 import Dashboard from "./Pages/dashboard/overview/overview";
-import ManageGoals from "./Pages/profileManagement/manageGoals";
+import ManageGoals from "./Pages/profileManagement/manageGoals/manageGoals";
 import AllFeaturesPage from "./Pages/dashboard/allFeatures/allFeatures";
 
 import "./App.css";
