@@ -1,5 +1,4 @@
 import React from 'react';
-import './allFeatures.css';
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../config/firebase.js";
