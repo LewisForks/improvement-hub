@@ -12,7 +12,7 @@ import {
   updateDoc,
   setDoc,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from "react-modal";
 import "./goals.css";
 import "./createGoalModal.css";
@@ -22,6 +22,7 @@ import { useLocation, Link } from "react-router-dom";
 Modal.setAppElement("#root"); // accessibility
 
 export const Goals = () => {
+  const [loading, setLoading] = useState(true);
   const [goals, setGoals] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("err");
@@ -46,22 +47,36 @@ export const Goals = () => {
   const db = getFirestore();
 
   useEffect(() => {
-    if (auth.currentUser) {
-      const q = query(
-        collection(db, "goals"),
-        where("userId", "==", auth.currentUser.uid)
-      );
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        const goalsData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setGoals(goalsData);
-      });
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLoading(true);
+        const q = query(
+          collection(db, "goals"),
+          where("userId", "==", user.uid)
+        );
+        const unsubscribeSnapshot = onSnapshot(
+          q,
+          (snapshot) => {
+            const goalsData = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+            setGoals(goalsData);
+            setLoading(false);
+          },
+          (error) => {
+            console.error("Error fetching goals: ", error);
+            setLoading(false);
+          }
+        );
 
-      // Clean up the onSnapshot listener
-      return () => unsubscribe();
-    }
+        // Clean up the onSnapshot listener
+        return () => unsubscribeSnapshot();
+      }
+    });
+
+    // Clean up the onAuthStateChanged listener
+    return () => unsubscribe();
   }, [auth, db]);
 
   useEffect(() => {
@@ -254,7 +269,9 @@ export const Goals = () => {
       </Modal>
 
       <div className="goals">
-        {incompleteGoals.length > 0 ? (
+        {loading ? (
+          <div>Loading...</div>
+        ) : incompleteGoals.length > 0 ? (
           incompleteGoals.slice(0, 4).map((goal) => (
             <div className="item active" key={goal.id}>
               <div className="info">
