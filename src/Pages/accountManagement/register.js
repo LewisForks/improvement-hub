@@ -1,5 +1,5 @@
 import React from "react";
-import { Register } from "../../components/account-management/register";
+import { Register } from "../../components/accountManagement/register";
 import "./Auth.css";
 import "../../App.css";
 
