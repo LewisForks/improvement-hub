@@ -1,0 +1,22 @@
+.whats-new-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    height: auto;
+    padding: 25px;
+    background: #131517;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.whats-new-container h3 {
+    font-size: 2.5rem;
+    color: #249b24;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.whats-new-container p {
+    font-size: 1.5rem;
+    text-align: center;
+}
