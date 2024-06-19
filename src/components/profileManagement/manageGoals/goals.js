@@ -19,7 +19,7 @@ import "./createGoalModal.css";
 
 import { useLocation, Link } from "react-router-dom";
 
-Modal.setAppElement("#root"); // accessibility
+
 
 export const Goals = () => {
   const [loading, setLoading] = useState(true);
