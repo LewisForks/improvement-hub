@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../../../components/Layout/Sidebar/Sidebar.js";
 
 import { DashboardHeader } from "../../../components/dashboard/overview/main/header/header.js";
-import { Goals } from "../../../components/dashboard/overview/main/goals/goals.js";
+import { Goals } from "../../../components/profileManagement/manageGoals/goals.js";
 import { Friends } from "../../../components/dashboard/overview/main/friends/friends.js";
 import { Profile } from "../../../components/dashboard/overview/right-section/profile/profile.js";
 import { AccountDetails } from "../../../components/dashboard/overview/right-section/accountDetails/accountDetails.js";
