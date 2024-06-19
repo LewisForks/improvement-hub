@@ -1,0 +1,6 @@
+.todo-container {
+  display: grid;
+  grid-template-columns: .75fr 3fr 2fr;
+  height: 100vh;
+  /* border-right: 4px solid #101111 */
+}
