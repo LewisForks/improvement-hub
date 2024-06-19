@@ -1,0 +1,79 @@
+@import "../../App.css";
+
+.react-calendar__month-view__days__day,
+.react-calendar__month-view__weekdays__weekday,
+.react-calendar__navigation__label__labelText {
+  color: white;
+}
+
+.react-calendar {
+  padding: 10px;
+  background: var(--secondary-bg-colour);
+  border: none;
+  border-radius: 1rem;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.react-calendar__month-view__days__day:hover {
+  background-color: var(--primary-bg-colour) !important;
+}
+
+.react-calendar__navigation__arrow {
+  color: white !important;
+}
+
+.react-calendar__navigation__label:hover,
+.react-calendar__navigation__arrow:hover {
+  background-color: var(--primary-bg-colour) !important;
+}
+
+.react-calendar__century-view__decades__decade--active,
+.react-calendar__century-view__decades__decade:hover,
+.react-calendar__decade-view__years__year--active,
+.react-calendar__decade-view__years__year:hover {
+  background-color: var(--primary-bg-colour) !important;
+  color: white !important;
+}
+
+.react-calendar__century-view__decades__decade,
+.react-calendar__decade-view__years__year {
+  color: white !important;
+}
+
+.react-calendar__century-view__heading,
+.react-calendar__century-view__heading:hover {
+  background-color: var(--primary-bg-colour) !important;
+  color: white !important;
+}
+
+.react-calendar__navigation button:disabled {
+  background-color: transparent;
+}
+
+.react-calendar__navigation button {
+  min-width: 44px;
+  background: transparent;
+}
+
+.react-calendar__navigation button:active,
+.react-calendar__navigation button:hover,
+.react-calendar__navigation button:focus {
+  background-color: var(--primary-bg-colour) !important;
+  color: white !important;
+}
+
+.react-calendar__year-view__months__month {
+  color: white !important;
+}
+
+.react-calendar__year-view__months__month:active,
+.react-calendar__year-view__months__month:hover,
+.react-calendar__year-view__months__month:focus {
+  background-color: var(--primary-bg-colour) !important;
+  color: white !important;
+}
+
+.react-calendar__tile--now {
+    background: #2b2b29;
+}
