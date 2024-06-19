@@ -12,6 +12,7 @@ import ManageProfile from "./Pages/accountManagement/manageProfile";
 import Dashboard from "./Pages/dashboard/overview/overview";
 import ManageGoals from "./Pages/profileManagement/manageGoals/manageGoals";
 import AllFeaturesPage from "./Pages/dashboard/allFeatures/allFeatures";
+import ManageToDoPage from "./Pages/profileManagement/manageToDo/manageToDo";
 
 import "./App.css";
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/account/manage" element={<ManageProfile />} />
         <Route path="/account/goals" element={<ManageGoals />} />
+        <Route path="/account/todo" element={<ManageToDoPage />} />
         <Route path="/dashboard/all-features" element={<AllFeaturesPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>

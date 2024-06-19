@@ -17,7 +17,7 @@ export const FeatureList = () => {
           </div>
         </div>
         </Link>
-        <Link to=""> {/* add path */}
+        <Link to="/account/todo">
         <div className="item">
           <div>
           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAB80lEQVRoQ+2YUU7CMBjH28QlPuIzk8AN8Bkl7ATiDeQGegKP4BHkBu4GmAjv3MAlbImPfTQBVju0hgDja7tv3YLliYT23/7+/6/9xig5kQ89EQ7iQOqWpEvEJVKSA660SjLWWNYlYmxdSRNdIiUZayz7fxLxF+8Dznnb2KojE731Oow6AcPQBhNpxtMXMegeY7E9Dc6D+PLmDUPbgWC4SCwn8iBiu0XZ+I4IJ/Qx8XtzDG2wtDAWsaHhQGy4rLMGmEj7Y9LQEdQZi9VDsjVBENdHVKKxfP1W1tmzsv4ipPHZCSLIl9qWVgax9LxnscGh6DcB1G9AEOkK5IjJ7+eEsEMHfgtCPuMxCAYEMdlgkTkHIDZynJDIWy6v8m66WoHkQQgORtN0tGj1wzyTagNSBEKpj/jJ7Ek8pQ60y4VSFjd7dyrzikIogRRoiCz2ry+2QZrxrCuq/ZVyPpJ/qDAgrIL8QRDS/jm9PDhbrea/V6y8nSQ3eCZ2kwbPCEYiexByF5SGAmi4syltCKVENi8fKBUloflJU5a0+mM5y4+nE/EdOmtGEEogmts/OhyAMYawDpItmANTCKISkAMwhSEqA9mC6UIdW7W0wVtLVchkXHaRWHtBZ7LBKuZUmggmsAPBdBNDyyWC4SKmhksE000MrZNJ5BsqbvozdzMUQAAAAABJRU5ErkJggg=="/>
