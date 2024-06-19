@@ -1,0 +1,50 @@
+@import "../../../App.css";
+
+.ReactModal__Content h2 {
+  margin: 0 0 20px;
+  color: #fff;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.ReactModal__Content input[type="text"],
+textarea {
+  width: 80%;
+  padding: 5px;
+  border: 1px solid #35383e;
+  background-color: #202225;
+  border-radius: 5px;
+  color: rgb(232, 230, 227);
+  margin: 10px 0;
+}
+
+.ReactModal__Content input[type="date"],input[type="checkbox"] {
+  width: auto;
+}
+
+.ReactModal__Content div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ReactModal__Content div label {
+  white-space: nowrap;
+}
+
+.ReactModal__Content button {
+  display: block;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.ReactModal__Content button:hover {
+  background: #555;
+}
