@@ -6,10 +6,8 @@ import {
   query,
   where,
   collection,
-  getDocs,
-  getDoc,
   doc,
-  updateDoc,
+  runTransaction,
 } from "firebase/firestore";
 import { db, auth } from "../../../config/firebase";
 
@@ -29,57 +27,87 @@ export const ToDo = ({ selectedDate }) => {
   );
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoading(true);
-        // tasks with no date set (continuous)
+
+        // query for tasks with no date
         const q1 = query(
           collection(db, "tasks"),
           where("userId", "==", user.uid),
           where("taskDate", "==", null)
         );
-        // tasks with selected date
+
+        // query for tasks with the selected date
         const q2 = query(
           collection(db, "tasks"),
           where("userId", "==", user.uid),
           where("taskDate", "==", localDate.toISOString().slice(0, 10))
         );
 
-        const [snapshot1, snapshot2] = await Promise.all([
-          getDocs(q1),
-          getDocs(q2),
-        ]);
-        // put all tasks into one array
-        const tasksData = [
-          ...snapshot1.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
-          ...snapshot2.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
-        ];
+        // set up real-time listener
+        const unsubscribe1 = onSnapshot(q1, (snapshot) => {
+          const tasksData = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setTasks(tasksData);
+          setLoading(false);
+        });
 
-        setTasks(tasksData);
-        setLoading(false);
+        const unsubscribe2 = onSnapshot(q2, (snapshot) => {
+          const tasksData = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setTasks(tasksData);
+          setLoading(false);
+        });
+
+        // clean up function
+        return () => {
+          unsubscribe1();
+          unsubscribe2();
+        };
       }
     });
 
-    return () => unsubscribe();
-  }, [auth, db, selectedDate]);
+    // clean up function
+    return () => {
+      unsubscribe();
+    };
+  }, [selectedDate, localDate]);
 
   const handleCheckboxChange = async (taskId) => {
     const taskIndex = tasks.findIndex((task) => task.id === taskId);
     if (taskIndex === -1) return;
+
     // update local state
     const updatedTasks = [...tasks];
     updatedTasks[taskIndex].isCompleted = !updatedTasks[taskIndex].isCompleted;
 
-    setTasks(updatedTasks);
+    // If isCompleted is undefined, set it to false
+    if (updatedTasks[taskIndex].isCompleted === undefined) {
+      updatedTasks[taskIndex].isCompleted = false;
+    }
+
     // update firestore with isCompleted value
     const taskRef = doc(db, "tasks", taskId);
-    const taskSnap = await getDoc(taskRef);
 
-    if (taskSnap.exists()) {
-      await updateDoc(taskRef, {
+    await runTransaction(db, async (transaction) => {
+      const taskSnap = await transaction.get(taskRef);
+
+      if (!taskSnap.exists()) {
+        throw console.error("Task does not exist!");
+      }
+
+      transaction.update(taskRef, {
         isCompleted: updatedTasks[taskIndex].isCompleted,
       });
-    }
+
+      // update local state inside the transaction
+      setTasks(updatedTasks);
+    });
   };
   // sort tasks by isCompleted
   const sortedTasks = tasks.sort((a, b) =>
