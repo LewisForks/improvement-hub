@@ -15,6 +15,7 @@ export const ToDo = ({ selectedDate }) => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
+  const [contextMenuOpen, setContextMenuOpen] = useState(null);
   const tasksPerPage = 14;
 
   // use local date to avoid timezone issues (i hate javascript)
@@ -78,6 +79,27 @@ export const ToDo = ({ selectedDate }) => {
     };
   }, [selectedDate, localDate]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        contextMenuOpen &&
+        !event.target.closest(".context-menu") &&
+        !event.target.closest(".menu-button")
+      ) {
+        setContextMenuOpen(null);
+      }
+    };
+
+    if (contextMenuOpen) {
+      document.addEventListener("click", handleClickOutside);
+    } else {
+      document.removeEventListener("click", handleClickOutside);
+    }
+
+    // Clean up the event listener on unmount
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [contextMenuOpen]);
+
   const handleCheckboxChange = async (taskId) => {
     const taskIndex = tasks.findIndex((task) => task.id === taskId);
     if (taskIndex === -1) return;
@@ -122,6 +144,10 @@ export const ToDo = ({ selectedDate }) => {
 
   const totalPages = Math.ceil(tasks.length / tasksPerPage);
 
+  const handleOpenMenu = (taskId) => {
+    setContextMenuOpen(taskId);
+  };
+
   return (
     <div className="todo-container">
       <div className="separator">
@@ -155,7 +181,24 @@ export const ToDo = ({ selectedDate }) => {
                     <p>Complete By: {task.taskDate}</p>
                   </div>
                 </div>
-                <i className="bx bx-dots-vertical-rounded"></i>
+                <div className="menu">
+                  <i
+                    className="bx bx-dots-vertical-rounded menu-button"
+                    onClick={() => handleOpenMenu(task.id)}
+                  ></i>
+                  {contextMenuOpen === task.id && (
+                    <div
+                      className="context-menu"
+                      onBlur={() => setContextMenuOpen(null)}
+                      tabIndex="0"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <button>Mark as Complete</button>
+                      <button>Edit</button>
+                      <button>Delete</button>
+                    </div>
+                  )}
+                </div>
               </div>
             ))
           )}
