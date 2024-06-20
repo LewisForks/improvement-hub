@@ -12,6 +12,7 @@
   padding: 20px;
   background-color: #131517;
   border-radius: 20px;
+  position: relative;
 }
 
 .tasks .item .left {
@@ -63,4 +64,25 @@
   background-color: transparent;
   color: #fff;
   cursor: pointer;
+}
+
+.tasks .item .menu-button {
+  cursor: pointer;
+}
+
+.item .context-menu {
+  position: absolute;
+  right: 25px;
+  display: flex;
+  flex-direction: column;
+  background-color: #000000ec;
+  border-radius: 10px;
+  z-index: 100;
+}
+
+.item .context-menu button {
+  color: white;
+  background-color: transparent;
+  padding: 5px 20px;
+  font-size: 1.3rem;
 }
