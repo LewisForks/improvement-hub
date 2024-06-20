@@ -138,7 +138,7 @@ export const ToDo = ({ selectedDate }) => {
               onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 0))}
               disabled={page === 0}
             >
-              Previous
+              <i className="bx bx-chevron-left"></i>
             </button>
             <span>
               Page {page + 1} of {totalPages}
@@ -149,7 +149,7 @@ export const ToDo = ({ selectedDate }) => {
               }
               disabled={page === totalPages - 1}
             >
-              Next
+              <i className="bx bx-chevron-right"></i>
             </button>
           </div>
         )}
