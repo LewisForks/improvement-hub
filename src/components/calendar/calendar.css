@@ -74,6 +74,10 @@
   color: white !important;
 }
 
+.react-calendar__month-view__days__day--weekend {
+  color: white !important;
+}
+
 .react-calendar__tile--now {
     background: #2b2b29;
 }
