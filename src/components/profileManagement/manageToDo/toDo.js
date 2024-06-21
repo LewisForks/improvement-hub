@@ -146,6 +146,12 @@ export const ToDo = ({ selectedDate }) => {
       updatedTasks[taskIndex].isCompleted = false;
     }
 
+    if (!updatedTasks[taskIndex].isCompleted) {
+      updatedTasks[taskIndex].completedOn = null;
+    } else {
+      updatedTasks[taskIndex].completedOn = new Date().toISOString().slice(0, 10);
+    }
+
     // update firestore with isCompleted value
     const taskRef = doc(db, "tasks", taskId);
 
@@ -158,6 +164,7 @@ export const ToDo = ({ selectedDate }) => {
 
       transaction.update(taskRef, {
         isCompleted: updatedTasks[taskIndex].isCompleted,
+        completedOn: updatedTasks[taskIndex].completedOn,
       });
 
       // update local state inside the transaction
