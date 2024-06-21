@@ -115,6 +115,12 @@ export const Goals = () => {
   };
 
   const handleCreateNewGoal = async () => {
+    if (!newGoalTitle) {
+      setErrorMessage("You need a goal title to create a goal!");
+      setErrorModalIsOpen(true);
+      return;
+    }
+
     await addDoc(collection(db, "goals"), {
       title: newGoalTitle,
       description: newGoalDescription,
