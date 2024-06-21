@@ -44,10 +44,13 @@ export const CreateTask = ({ selectedDate }) => {
       alert("You need a task name to create a task!");
       return;
     }
+    
+    const effectiveTaskDate = hasDueDate ? taskDate : null;
+
     await addDoc(collection(db, "tasks"), {
       name: taskName,
       description: taskDescription,
-      taskDate: taskDate,
+      taskDate: effectiveTaskDate,
       userId: auth.currentUser.uid,
     });
     setTaskName("");
