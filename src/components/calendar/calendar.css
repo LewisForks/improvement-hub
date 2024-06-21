@@ -78,6 +78,16 @@
   color: white !important;
 }
 
+.react-calendar__tile--active,
+.react-calendar__tile--active:enabled:hover {
+  background-color: var(--other-colour) !important;
+}
+
+.react-calendar__tile--active:hover {
+  background: var(--other-colour) !important;
+  color: white !important;
+}
+
 .react-calendar__tile--now {
   background: #2b2b29 !important;
 }
