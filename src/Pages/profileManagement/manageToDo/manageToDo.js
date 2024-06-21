@@ -25,7 +25,6 @@ const ManageToDoPage = () => {
         <aside className="right-section">
           <Profile />
           <CustomCalendar onDateChange={handleDateChange} />
-          <CreateTask selectedDate={date} />
         </aside>
       </div>
     </div>

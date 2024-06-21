@@ -11,6 +11,8 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../../../config/firebase";
 
+import { CreateTask } from "./createTask";
+
 export const ToDo = ({ selectedDate }) => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -157,6 +159,7 @@ export const ToDo = ({ selectedDate }) => {
             ? selectedDate.toLocaleDateString()
             : "No date selected"}
         </h4>
+        <CreateTask selectedDate={selectedDate} />
       </div>
       <div>
         <div className="tasks">
