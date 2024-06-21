@@ -176,7 +176,11 @@ export const Goals = () => {
   const handleUpdateGoal = async (event) => {
     event.preventDefault();
 
-    console.log(updateGoalTitle, updateGoalDescription, updateGoalId);
+    if (!updateGoalTitle) {
+      setErrorMessage("You need a goal title to update a goal!");
+      setErrorModalIsOpen(true);
+      return;
+    }
 
     try {
       await updateDoc(doc(db, "goals", updateGoalId), {
