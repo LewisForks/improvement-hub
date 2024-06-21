@@ -1,3 +1,19 @@
+.todo-container .separator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.todo-container .separator button {
+  background: var(--other-colour);
+  color: #fff;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .tasks {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -33,6 +49,7 @@
 .tasks .item .left .completed input[type="checkbox"] {
   height: 100%;
   width: 100%;
+  background-color: black;
 }
 
 .tasks .item:nth-child(1) .left .completed {
