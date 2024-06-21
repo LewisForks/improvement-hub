@@ -28,10 +28,6 @@ export const CreateTask = ({ selectedDate }) => {
     setTaskDate(localDate.toISOString().slice(0, 10));
   }, [localDate]);
 
-  const validateForm = () => {
-    return taskName && taskDate;
-  };
-
   const openNewTaskModal = () => {
     setNewTaskModalIsOpen(true);
   };
@@ -44,8 +40,8 @@ export const CreateTask = ({ selectedDate }) => {
   };
 
   const handleCreateNewTask = async () => {
-    if (!validateForm()) {
-      alert("Please fill in all the fields.");
+    if (!taskName) {
+      alert("You need a task name to create a task!");
       return;
     }
     await addDoc(collection(db, "tasks"), {
@@ -62,60 +58,60 @@ export const CreateTask = ({ selectedDate }) => {
   return (
     <div>
       <button onClick={openNewTaskModal}>Create New Task</button>
-        <Modal
-          isOpen={newTaskModalIsOpen}
-          onRequestClose={() => setNewTaskModalIsOpen(false)}
-        >
-          <form>
-            <label htmlFor="taskName">Task Name:</label>
+      <Modal
+        isOpen={newTaskModalIsOpen}
+        onRequestClose={() => setNewTaskModalIsOpen(false)}
+      >
+        <form>
+          <label htmlFor="taskName">Task Name:</label>
+          <input
+            type="text"
+            id="taskName"
+            name="taskName"
+            placeholder="Task Name"
+            value={taskName}
+            onChange={(e) => setTaskName(e.target.value)}
+            required
+          />
+          <label htmlFor="taskDescription">Task Description:</label>
+          <textarea
+            id="taskDescription"
+            name="taskDescription"
+            placeholder="Task Description"
+            value={taskDescription}
+            maxLength={300}
+            onChange={(e) => setTaskDescription(e.target.value)}
+          />
+          <div>
+            <label htmlFor="taskDate">Due Date?</label>
             <input
-              type="text"
-              id="taskName"
-              name="taskName"
-              placeholder="Task Name"
-              value={taskName}
-              onChange={(e) => setTaskName(e.target.value)}
+              type="checkbox"
+              id="hasDueDate"
+              name="hasDueDate"
+              checked={hasDueDate}
+              onChange={(e) => setHasDueDate(e.target.checked)}
+            />
+          </div>
+          {hasDueDate && (
+            <input
+              type="date"
+              id="taskDate"
+              name="taskDate"
+              value={taskDate}
+              onChange={(e) => setTaskDate(e.target.value)}
               required
             />
-            <label htmlFor="taskDescription">Task Description:</label>
-            <textarea
-              id="taskDescription"
-              name="taskDescription"
-              placeholder="Task Description"
-              value={taskDescription}
-              maxLength={300}
-              onChange={(e) => setTaskDescription(e.target.value)}
-            />
-            <div>
-              <label htmlFor="taskDate">Due Date?</label>
-              <input
-                type="checkbox"
-                id="hasDueDate"
-                name="hasDueDate"
-                checked={hasDueDate}
-                onChange={(e) => setHasDueDate(e.target.checked)}
-              />
-            </div>
-            {hasDueDate && (
-              <input
-                type="date"
-                id="taskDate"
-                name="taskDate"
-                value={taskDate}
-                onChange={(e) => setTaskDate(e.target.value)}
-                required
-              />
-            )}
-          </form>
-          <div>
-            <button onClick={handleCreateNewTask} id="submitBtn">
-              Create
-            </button>
-            <button onClick={closeNewTaskModal} id="submitBtn">
-              Cancel
-            </button>
-          </div>
-        </Modal>
-      </div>
+          )}
+        </form>
+        <div>
+          <button onClick={handleCreateNewTask} id="submitBtn">
+            Create
+          </button>
+          <button onClick={closeNewTaskModal} id="submitBtn">
+            Cancel
+          </button>
+        </div>
+      </Modal>
+    </div>
   );
 };
