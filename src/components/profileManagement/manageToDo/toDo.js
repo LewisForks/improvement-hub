@@ -34,52 +34,83 @@ export const ToDo = ({ selectedDate }) => {
       if (user) {
         setLoading(true);
 
-        // query for tasks with no date
+        const formattedDate = localDate.toISOString().slice(0, 10);
+
+        // Query for tasks with no date and not completed
         const q1 = query(
           collection(db, "tasks"),
           where("userId", "==", user.uid),
-          where("taskDate", "==", null)
+          where("taskDate", "==", null),
+          where("completedOn", "==", null)
         );
 
-        // query for tasks with the selected date
+        // Query for tasks with the selected date
         const q2 = query(
           collection(db, "tasks"),
           where("userId", "==", user.uid),
-          where("taskDate", "==", localDate.toISOString().slice(0, 10))
+          where("taskDate", "==", formattedDate)
         );
 
-        // set up real-time listener
-        const unsubscribe1 = onSnapshot(q1, (snapshot) => {
-          const tasksData = snapshot.docs.map((doc) => ({
+        // Query for tasks with no taskDate but completed on the selected date
+        const q3 = query(
+          collection(db, "tasks"),
+          where("userId", "==", user.uid),
+          where("completedOn", "==", formattedDate)
+        );
+
+        // Combine queries and set up real-time listeners
+        const unsubscribe1 = onSnapshot(q1, (snapshot1) => {
+          const tasksData1 = snapshot1.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }));
-          setTasks(tasksData);
-          setLoading(false);
+
+          const unsubscribe2 = onSnapshot(q2, (snapshot2) => {
+            const tasksData2 = snapshot2.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+
+            const unsubscribe3 = onSnapshot(q3, (snapshot3) => {
+              const tasksData3 = snapshot3.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }));
+
+              // Combine all tasks and update state
+              const combinedTasks = [
+                ...tasksData1,
+                ...tasksData2,
+                ...tasksData3,
+              ];
+              setTasks(combinedTasks);
+              setLoading(false);
+            });
+
+            // Clean up function for unsubscribe3
+            return () => {
+              unsubscribe3();
+            };
+          });
+
+          // Clean up function for unsubscribe2
+          return () => {
+            unsubscribe2();
+          };
         });
 
-        const unsubscribe2 = onSnapshot(q2, (snapshot) => {
-          const tasksData = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          setTasks(tasksData);
-          setLoading(false);
-        });
-
-        // clean up function
+        // Clean up function
         return () => {
           unsubscribe1();
-          unsubscribe2();
         };
       }
     });
 
-    // clean up function
+    // Clean up function
     return () => {
       unsubscribe();
     };
-  }, [selectedDate, localDate]);
+  }, [auth, localDate]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
