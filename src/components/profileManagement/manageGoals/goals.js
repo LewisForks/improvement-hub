@@ -19,8 +19,6 @@ import "./createGoalModal.css";
 
 import { useLocation, Link } from "react-router-dom";
 
-
-
 export const Goals = () => {
   const [loading, setLoading] = useState(true);
   const [goals, setGoals] = useState([]);

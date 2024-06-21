@@ -61,10 +61,7 @@ export const CreateTask = ({ selectedDate }) => {
 
   return (
     <div>
-      <div className="separator">
-        <button onClick={openNewTaskModal}>Create New Task</button>
-      </div>
-      <div className="form-container">
+      <button onClick={openNewTaskModal}>Create New Task</button>
         <Modal
           isOpen={newTaskModalIsOpen}
           onRequestClose={() => setNewTaskModalIsOpen(false)}
@@ -120,6 +117,5 @@ export const CreateTask = ({ selectedDate }) => {
           </div>
         </Modal>
       </div>
-    </div>
   );
 };
