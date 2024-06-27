@@ -39,8 +39,8 @@ export const ToDo = ({ selectedDate }) => {
         const q = query(
           collection(db, "tasks"),
           where("userId", "==", user.uid),
-          where("taskDate", "in", [formattedDate, 0]),
-          where("completedOn", "in", [formattedDate, 0])
+          where("taskDate", "in", [formattedDate, ""]),
+          where("completedOn", "in", [formattedDate, ""])
         );
         getDocs(q)
           .then((snapshot) => {
@@ -105,7 +105,7 @@ export const ToDo = ({ selectedDate }) => {
         // update Firestore without re-rendering
         transaction.update(taskRef, {
           isCompleted: !isCompleted,
-          completedOn: isCompleted ? 0 : formattedDate,
+          completedOn: isCompleted ? "" : formattedDate,
         });
       });
 
