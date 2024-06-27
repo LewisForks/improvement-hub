@@ -7,7 +7,7 @@ import Modal from "react-modal";
 import "./createTaskModal.css";
 Modal.setAppElement("#root"); // accessibility
 
-export const CreateTask = ({ selectedDate }) => {
+export const CreateTask = ({ selectedDate, onTaskCreated }) => {
   const localDate = useMemo(
     () =>
       new Date(
@@ -54,9 +54,8 @@ export const CreateTask = ({ selectedDate }) => {
       completedOn: 0,
       isCompleted: false,
     });
-    setTaskName("");
-    setTaskDescription("");
-    setHasDueDate(false);
+    closeNewTaskModal();
+    onTaskCreated();
   };
 
   return (
