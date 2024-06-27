@@ -5,7 +5,6 @@ import { collection, addDoc } from "firebase/firestore";
 
 import Modal from "react-modal";
 import "./createTaskModal.css";
-import { set } from "firebase/database";
 Modal.setAppElement("#root"); // accessibility
 
 export const CreateTask = ({ selectedDate }) => {
@@ -45,13 +44,15 @@ export const CreateTask = ({ selectedDate }) => {
       return;
     }
     
-    const effectiveTaskDate = hasDueDate ? taskDate : null;
+    const effectiveTaskDate = hasDueDate ? taskDate : 0;
 
     await addDoc(collection(db, "tasks"), {
       name: taskName,
       description: taskDescription,
       taskDate: effectiveTaskDate,
       userId: auth.currentUser.uid,
+      completedOn: 0,
+      isCompleted: false,
     });
     setTaskName("");
     setTaskDescription("");
