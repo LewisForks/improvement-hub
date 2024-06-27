@@ -8,10 +8,13 @@ import {
   doc,
   getDocs,
   runTransaction,
+  updateDoc,
 } from "firebase/firestore";
 import { db, auth } from "../../../config/firebase";
 
 import { CreateTask } from "./createTask";
+
+import Modal from "react-modal";
 
 export const ToDo = ({ selectedDate }) => {
   const [tasks, setTasks] = useState([]);
@@ -20,6 +23,13 @@ export const ToDo = ({ selectedDate }) => {
   const [contextMenuOpen, setContextMenuOpen] = useState(null);
   const [taskCreated, setTaskCreated] = useState(false);
   const tasksPerPage = 14;
+
+  const [updateTaskModalIsOpen, setUpdateTaskModalIsOpen] = useState(false);
+  const [updateTaskId, setUpdateTaskId] = useState("");
+  const [updateTaskName, setUpdateTaskName] = useState("");
+  const [updateTaskDescription, setUpdateTaskDescription] = useState("");
+  const [updateTaskDate, setUpdateTaskDate] = useState("");
+  const [updateHasDueDate, setUpdateHasDueDate] = useState("");
 
   // Use local date to avoid timezone issues (i hate javascript :D)
   const localDate = useMemo(
@@ -115,9 +125,50 @@ export const ToDo = ({ selectedDate }) => {
     }
   };
 
+  const closeEditTaskModal = () => {
+    setUpdateTaskModalIsOpen(false);
+    setUpdateTaskName("");
+    setUpdateTaskDescription("");
+    setUpdateHasDueDate(false);
+    setUpdateTaskDate("");
+  };
+
+  const handleEditTask = (taskId) => {
+    // finds selected task information
+    const selectedTask = tasks.find((task) => task.id === taskId);
+    console.log(taskId);
+
+    // opens and sets value for updateTask modal
+    setUpdateTaskId(taskId);
+    setUpdateTaskName(selectedTask.name);
+    setUpdateTaskDescription(selectedTask.description);
+    setUpdateTaskModalIsOpen(true);
+  };
+
+  const handleUpdateTask = async () => {
+    if (!updateTaskName) {
+      alert("ya need a name to edit a task!");
+      return;
+    }
+
+    try {
+      await updateDoc(doc(db, "tasks", updateTaskId), {
+        name: updateTaskName,
+        description: updateTaskDescription,
+        taskDate: updateTaskDate,
+      });
+
+      closeEditTaskModal();
+      setTaskCreated((prev) => !prev);
+    } catch (error) {
+      console.error("Error updating task: ", error);
+    }
+  };
+
+  // sort tasks by completed status
   const sortedTasks = useMemo(() => {
-    const completedTasks = tasks.filter(task => task.isCompleted);
-    const incompleteTasks = tasks.filter(task => !task.isCompleted);
+    const completedTasks = tasks.filter((task) => task.isCompleted);
+    const incompleteTasks = tasks.filter((task) => !task.isCompleted);
     return [...incompleteTasks, ...completedTasks];
   }, [tasks]);
 
@@ -136,6 +187,46 @@ export const ToDo = ({ selectedDate }) => {
 
   return (
     <div className="todo-container">
+      <Modal
+        isOpen={updateTaskModalIsOpen}
+        onRequestClose={() => setUpdateTaskModalIsOpen(false)}
+      >
+        <h2>Edit Task</h2>
+        <form>
+          <input
+            value={updateTaskName}
+            onChange={(e) => setUpdateTaskName(e.target.value)}
+            placeholder="Task Name"
+            type="text"
+          />
+          <textarea
+            value={updateTaskDescription}
+            onChange={(e) => setUpdateTaskDescription(e.target.value)}
+            placeholder="Task Description"
+            maxLength={300}
+          />
+          <div>
+            <label htmlFor="taskDate">Due Date?</label>
+            <input
+              type="checkbox"
+              checked={updateHasDueDate}
+              onChange={(e) => setUpdateHasDueDate(e.target.checked)}
+            />
+          </div>
+          {updateHasDueDate && (
+            <input
+              type="date"
+              value={updateTaskDate}
+              onChange={(e) => setUpdateTaskDate(e.target.value)}
+              required
+            />
+          )}
+        </form>
+        <div>
+          <button onClick={handleUpdateTask}>Submit</button>
+          <button onClick={() => closeEditTaskModal()}>Close</button>
+        </div>
+      </Modal>
       <div className="separator">
         <h4>
           Tasks -{" "}
@@ -143,8 +234,12 @@ export const ToDo = ({ selectedDate }) => {
             ? selectedDate.toLocaleDateString()
             : "No date selected"}
         </h4>
-        <CreateTask selectedDate={selectedDate} onTaskCreated={() => setTaskCreated((prev) => !prev)} />
+        <CreateTask
+          selectedDate={selectedDate}
+          onTaskCreated={() => setTaskCreated((prev) => !prev)}
+        />
       </div>
+
       <div>
         <div className="tasks">
           {loading ? (
@@ -165,7 +260,7 @@ export const ToDo = ({ selectedDate }) => {
                   <div className="details">
                     <h5>{task.name}</h5>
                     <p>{task.description || "No Description"}</p>
-                    <p>Complete By: {task.taskDate}</p>
+                    <p>Complete By: {task.taskDate || "No Date Set"}</p>
                   </div>
                 </div>
                 <div className="menu">
@@ -180,8 +275,17 @@ export const ToDo = ({ selectedDate }) => {
                       tabIndex="0"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <button>Mark as Complete</button>
-                      <button>Edit</button>
+                      <button
+                        onClick={() => {
+                          handleCheckboxChange(task.id);
+                          setContextMenuOpen(false);
+                        }}
+                      >
+                        Mark as Complete
+                      </button>
+                      <button onClick={() => handleEditTask(task.id)}>
+                        Edit
+                      </button>
                       <button>Delete</button>
                     </div>
                   )}
