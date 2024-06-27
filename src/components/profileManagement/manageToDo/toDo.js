@@ -115,7 +115,11 @@ export const ToDo = ({ selectedDate }) => {
     }
   };
 
-  const sortedTasks = tasks;
+  const sortedTasks = useMemo(() => {
+    const completedTasks = tasks.filter(task => task.isCompleted);
+    const incompleteTasks = tasks.filter(task => !task.isCompleted);
+    return [...incompleteTasks, ...completedTasks];
+  }, [tasks]);
 
   // Paginate sorted tasks
   const paginateTasks = () => {
