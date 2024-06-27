@@ -71,7 +71,7 @@ export const ToDo = ({ selectedDate }) => {
 
     // Clean up the onAuthStateChanged listener
     return () => unsubscribe();
-  }, [auth, db, formattedDate, taskCreated]);
+  }, [formattedDate, taskCreated]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
