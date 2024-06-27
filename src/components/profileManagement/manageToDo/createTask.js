@@ -44,14 +44,14 @@ export const CreateTask = ({ selectedDate, onTaskCreated }) => {
       return;
     }
     
-    const effectiveTaskDate = hasDueDate ? taskDate : 0;
+    const effectiveTaskDate = hasDueDate ? taskDate : "";
 
     await addDoc(collection(db, "tasks"), {
       name: taskName,
       description: taskDescription,
       taskDate: effectiveTaskDate,
       userId: auth.currentUser.uid,
-      completedOn: 0,
+      completedOn: "",
       isCompleted: false,
     });
     closeNewTaskModal();
