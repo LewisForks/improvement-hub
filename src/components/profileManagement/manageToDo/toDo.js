@@ -2,11 +2,11 @@ import "./toDo.css";
 import { useEffect, useState, useMemo } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import {
-  onSnapshot,
   query,
   where,
   collection,
   doc,
+  getDocs,
   runTransaction,
 } from "firebase/firestore";
 import { db, auth } from "../../../config/firebase";
@@ -18,9 +18,10 @@ export const ToDo = ({ selectedDate }) => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [contextMenuOpen, setContextMenuOpen] = useState(null);
+  const [taskCreated, setTaskCreated] = useState(false);
   const tasksPerPage = 14;
 
-  // use local date to avoid timezone issues (i hate javascript)
+  // Use local date to avoid timezone issues (i hate javascript :D)
   const localDate = useMemo(
     () =>
       new Date(
@@ -29,88 +30,38 @@ export const ToDo = ({ selectedDate }) => {
     [selectedDate]
   );
 
+  const formattedDate = localDate.toISOString().slice(0, 10);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoading(true);
-
-        const formattedDate = localDate.toISOString().slice(0, 10);
-
-        // Query for tasks with no date and not completed
-        const q1 = query(
+        const q = query(
           collection(db, "tasks"),
           where("userId", "==", user.uid),
-          where("taskDate", "==", null),
-          where("completedOn", "==", null)
+          where("taskDate", "in", [formattedDate, 0]),
+          where("completedOn", "in", [formattedDate, 0])
         );
-
-        // Query for tasks with the selected date
-        const q2 = query(
-          collection(db, "tasks"),
-          where("userId", "==", user.uid),
-          where("taskDate", "==", formattedDate)
-        );
-
-        // Query for tasks with no taskDate but completed on the selected date
-        const q3 = query(
-          collection(db, "tasks"),
-          where("userId", "==", user.uid),
-          where("completedOn", "==", formattedDate)
-        );
-
-        // Combine queries and set up real-time listeners
-        const unsubscribe1 = onSnapshot(q1, (snapshot1) => {
-          const tasksData1 = snapshot1.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-
-          const unsubscribe2 = onSnapshot(q2, (snapshot2) => {
-            const tasksData2 = snapshot2.docs.map((doc) => ({
+        getDocs(q)
+          .then((snapshot) => {
+            const tasksData = snapshot.docs.map((doc) => ({
               id: doc.id,
               ...doc.data(),
             }));
-
-            const unsubscribe3 = onSnapshot(q3, (snapshot3) => {
-              const tasksData3 = snapshot3.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-              }));
-
-              // Combine all tasks and update state
-              const combinedTasks = [
-                ...tasksData1,
-                ...tasksData2,
-                ...tasksData3,
-              ];
-              setTasks(combinedTasks);
-              setLoading(false);
-            });
-
-            // Clean up function for unsubscribe3
-            return () => {
-              unsubscribe3();
-            };
+            console.log("Fetched Tasks from here:", tasksData);
+            setTasks(tasksData);
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.error("Error fetching tasks: ", error);
+            setLoading(false);
           });
-
-          // Clean up function for unsubscribe2
-          return () => {
-            unsubscribe2();
-          };
-        });
-
-        // Clean up function
-        return () => {
-          unsubscribe1();
-        };
       }
     });
 
-    // Clean up function
-    return () => {
-      unsubscribe();
-    };
-  }, [auth, localDate]);
+    // Clean up the onAuthStateChanged listener
+    return () => unsubscribe();
+  }, [auth, db, formattedDate, taskCreated]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -134,55 +85,46 @@ export const ToDo = ({ selectedDate }) => {
   }, [contextMenuOpen]);
 
   const handleCheckboxChange = async (taskId) => {
-    const taskIndex = tasks.findIndex((task) => task.id === taskId);
-    if (taskIndex === -1) return;
+    try {
+      const taskRef = doc(db, "tasks", taskId);
 
-    // update local state
-    const updatedTasks = [...tasks];
-    updatedTasks[taskIndex].isCompleted = !updatedTasks[taskIndex].isCompleted;
+      await runTransaction(db, async (transaction) => {
+        const taskDoc = await transaction.get(taskRef);
+        if (!taskDoc.exists()) {
+          throw new Error("Document does not exist!");
+        }
+        const isCompleted = taskDoc.data().isCompleted;
 
-    // If isCompleted is undefined, set it to false
-    if (updatedTasks[taskIndex].isCompleted === undefined) {
-      updatedTasks[taskIndex].isCompleted = false;
-    }
+        // update local state immediately
+        setTasks((currentTasks) =>
+          currentTasks.map((task) =>
+            task.id === taskId ? { ...task, isCompleted: !isCompleted } : task
+          )
+        );
 
-    if (!updatedTasks[taskIndex].isCompleted) {
-      updatedTasks[taskIndex].completedOn = null;
-    } else {
-      updatedTasks[taskIndex].completedOn = new Date().toISOString().slice(0, 10);
-    }
-
-    // update firestore with isCompleted value
-    const taskRef = doc(db, "tasks", taskId);
-
-    await runTransaction(db, async (transaction) => {
-      const taskSnap = await transaction.get(taskRef);
-
-      if (!taskSnap.exists()) {
-        throw console.error("Task does not exist!");
-      }
-
-      transaction.update(taskRef, {
-        isCompleted: updatedTasks[taskIndex].isCompleted,
-        completedOn: updatedTasks[taskIndex].completedOn,
+        // update Firestore without re-rendering
+        transaction.update(taskRef, {
+          isCompleted: !isCompleted,
+          completedOn: isCompleted ? 0 : formattedDate,
+        });
       });
 
-      // update local state inside the transaction
-      setTasks(updatedTasks);
-    });
+      console.log("Transaction successfully committed!");
+    } catch (error) {
+      console.error("Transaction failed: ", error);
+    }
   };
-  // sort tasks by isCompleted
-  const sortedTasks = tasks.sort((a, b) =>
-    a.isCompleted === b.isCompleted ? 0 : a.isCompleted ? 1 : -1
-  );
 
+  const sortedTasks = tasks;
+
+  // Paginate sorted tasks
   const paginateTasks = () => {
     const start = page * tasksPerPage;
     const end = start + tasksPerPage;
     return sortedTasks.slice(start, end);
   };
 
-  const totalPages = Math.ceil(tasks.length / tasksPerPage);
+  const totalPages = Math.ceil(sortedTasks.length / tasksPerPage);
 
   const handleOpenMenu = (taskId) => {
     setContextMenuOpen(taskId);
@@ -197,13 +139,13 @@ export const ToDo = ({ selectedDate }) => {
             ? selectedDate.toLocaleDateString()
             : "No date selected"}
         </h4>
-        <CreateTask selectedDate={selectedDate} />
+        <CreateTask selectedDate={selectedDate} onTaskCreated={() => setTaskCreated((prev) => !prev)} />
       </div>
       <div>
         <div className="tasks">
           {loading ? (
             <p>Loading...</p>
-          ) : tasks.length === 0 ? (
+          ) : sortedTasks.length === 0 ? (
             <p>No tasks found.</p>
           ) : (
             paginateTasks().map((task) => (
@@ -214,7 +156,7 @@ export const ToDo = ({ selectedDate }) => {
                       type="checkbox"
                       checked={task.isCompleted}
                       onChange={() => handleCheckboxChange(task.id)}
-                    ></input>
+                    />
                   </div>
                   <div className="details">
                     <h5>{task.name}</h5>
@@ -244,7 +186,7 @@ export const ToDo = ({ selectedDate }) => {
             ))
           )}
         </div>
-        {tasks.length > tasksPerPage && (
+        {sortedTasks.length > tasksPerPage && (
           <div className="pagination">
             <button
               onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 0))}
@@ -269,3 +211,5 @@ export const ToDo = ({ selectedDate }) => {
     </div>
   );
 };
+
+export default ToDo;
