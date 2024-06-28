@@ -9,6 +9,7 @@ import {
   getDocs,
   runTransaction,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db, auth } from "../../../config/firebase";
 
@@ -161,6 +162,15 @@ export const ToDo = ({ selectedDate }) => {
     }
   };
 
+  const handleDeleteTask = async (taskId) => {
+    try {
+      await deleteDoc(doc(db, "tasks", taskId));
+      setTaskCreated((prev) => !prev);
+    } catch (error) {
+      console.error("Error deleting goal: ", error);
+    }
+  };
+
   // sort tasks by completed status
   const sortedTasks = useMemo(() => {
     const completedTasks = tasks.filter((task) => task.isCompleted);
@@ -282,7 +292,7 @@ export const ToDo = ({ selectedDate }) => {
                       <button onClick={() => handleEditTask(task.id)}>
                         Edit
                       </button>
-                      <button>Delete</button>
+                      <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
                     </div>
                   )}
                 </div>
