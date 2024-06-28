@@ -11,7 +11,6 @@ const ManageToDoPage = () => {
   const [date, setDate] = useState(new Date());
 
   const handleDateChange = (date) => {
-    console.log(date);
     setDate(date);
   };
 
