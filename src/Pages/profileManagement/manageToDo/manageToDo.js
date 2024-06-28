@@ -5,8 +5,6 @@ import { CustomCalendar } from "../../../components/calendar/calendar";
 
 import React, { useState } from "react";
 
-import { CreateTask } from "../../../components/profileManagement/manageToDo/createTask";
-
 const ManageToDoPage = () => {
   const [date, setDate] = useState(new Date());
 
