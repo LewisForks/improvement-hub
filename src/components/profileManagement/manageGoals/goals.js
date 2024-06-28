@@ -77,6 +77,7 @@ export const Goals = () => {
     return () => unsubscribe();
   }, [auth, db]);
 
+  // close the context menu when clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (

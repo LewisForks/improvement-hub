@@ -58,7 +58,6 @@ export const ToDo = ({ selectedDate }) => {
               id: doc.id,
               ...doc.data(),
             }));
-            console.log("Fetched Tasks from here:", tasksData);
             setTasks(tasksData);
             setLoading(false);
           })
@@ -118,8 +117,6 @@ export const ToDo = ({ selectedDate }) => {
           completedOn: isCompleted ? "" : formattedDate,
         });
       });
-
-      console.log("Transaction successfully committed!");
     } catch (error) {
       console.error("Transaction failed: ", error);
     }
@@ -136,7 +133,6 @@ export const ToDo = ({ selectedDate }) => {
   const handleEditTask = (taskId) => {
     // finds selected task information
     const selectedTask = tasks.find((task) => task.id === taskId);
-    console.log(taskId);
 
     // opens and sets value for updateTask modal
     setUpdateTaskId(taskId);
